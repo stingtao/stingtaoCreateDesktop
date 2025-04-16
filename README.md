@@ -17,25 +17,25 @@ StingtaoCreateDesktop is an AI-powered desktop application that helps content cr
 ## Screenshots
 
 ### Application Interface
-![Project Interface](screenshots/Screenshot%202025-04-17%20at%202.27.55%20AM.png)
+![Project Interface](screenshots/Screenshot%202025-04-17%20at%202.27.55%E2%80%AFAM.png)
 
 ### Project Management
-![Project Management](screenshots/Screenshot%202025-04-17%20at%202.28.25%20AM.png)
+![Project Management](screenshots/Screenshot%202025-04-17%20at%202.28.25%E2%80%AFAM.png)
 
 ### Article Editor
-![Article Editor](screenshots/Screenshot%202025-04-17%20at%202.29.42%20AM.png)
+![Article Editor](screenshots/Screenshot%202025-04-17%20at%202.29.42%E2%80%AFAM.png)
 
 ### AI Assistant Panel
-![AI Assistant](screenshots/Screenshot%202025-04-17%20at%202.30.14%20AM.png)
+![AI Assistant](screenshots/Screenshot%202025-04-17%20at%202.30.14%E2%80%AFAM.png)
 
 ### Easy management
-![Content Creation](screenshots/Screenshot%202025-04-17%20at%202.31.12%20AM.png)
+![Content Creation](screenshots/Screenshot%202025-04-17%20at%202.31.12%E2%80%AFAM.png)
 
 ### Select sentences for AI to assist you
-![inline support](screenshots/Screenshot%202025-04-17%20at%202.33.39%20AM.png)
+![inline support](screenshots/Screenshot%202025-04-17%20at%202.33.39%E2%80%AFAM.png)
 
 ### Write your prompt while you are thinking with your work
-![Seamless integration](screenshots/Screenshot%202025-04-17%20at%202.33.52%20AM.png)
+![Seamless integration](screenshots/Screenshot%202025-04-17%20at%202.33.52%E2%80%AFAM.png)
 
 ## Getting Started
 

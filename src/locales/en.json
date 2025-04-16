@@ -1,0 +1,628 @@
+{
+  "app": {
+    "title": "stingtaoCreate",
+    "description": "Writing Assistant"
+  },
+  "nav": {
+    "projects": "Projects",
+    "home": "Home",
+    "settings": "Settings",
+    "help": "Help"
+  },
+  "projects": {
+    "title": "Projects",
+    "newProject": "New Project",
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "addArticle": "Add Article"
+    },
+    "created": "Created",
+    "updated": "Updated",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "goal": "Goal",
+    "description": "Description",
+    "targetAudience": "Target Audience",
+    "frequency": "Publishing Frequency",
+    "notSet": "Not set",
+    "empty": {
+      "title": "No Projects Yet",
+      "description": "Start your writing journey by creating your first project",
+      "start": "Create Project"
+    },
+    "deleteModal": {
+      "title": "Delete Project",
+      "confirmation": "Are you sure you want to delete '{title}'?",
+      "secondTitle": "Final Confirmation",
+      "secondConfirmation": "Warning: This will permanently delete '{title}' and all its associated articles. This action cannot be undone. Are you absolutely sure?",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "deleteError": "An error occurred while deleting the project",
+    "setEndDate": "Please enter the end date (YYYY-MM-DD):",
+    "invalidDate": "Invalid date format. Please use YYYY-MM-DD format",
+    "types": {
+      "blog": "Blog",
+      "book": "Book",
+      "course": "Course"
+    },
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "archived": "Archived",
+      "draft": "Draft"
+    },
+    "card": {
+      "viewDetails": "View Details",
+      "lastUpdated": "Last Updated",
+      "articles": "Articles",
+      "noArticles": "No articles yet",
+      "dueDate": "Due Date",
+      "progress": "Progress"
+    },
+    "tooltips": {
+      "edit": "Edit project details",
+      "delete": "Delete this project",
+      "addArticle": "Add new article to this project",
+      "setEndDate": "Set project end date"
+    },
+    "confirmations": {
+      "deleteTitle": "Delete Project",
+      "deleteMessage": "Are you sure you want to delete this project? This action cannot be undone.",
+      "deleteSuccess": "Project deleted successfully",
+      "deleteFailed": "Failed to delete project"
+    },
+    "filters": {
+      "all": "All Projects",
+      "active": "Active",
+      "completed": "Completed",
+      "archived": "Archived",
+      "type": "Project Type",
+      "status": "Status",
+      "sortBy": "Sort By",
+      "search": "Search projects..."
+    },
+    "sort": {
+      "newest": "Newest First",
+      "oldest": "Oldest First",
+      "title": "Title",
+      "dueDate": "Due Date",
+      "lastUpdated": "Last Updated"
+    },
+    "metrics": {
+      "totalProjects": "Total Projects",
+      "activeProjects": "Active Projects",
+      "completedProjects": "Completed Projects",
+      "totalArticles": "Total Articles",
+      "totalWords": "Total Words"
+    },
+    "editForm": {
+      "title": "Edit Project",
+      "save": "Save Changes",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "loading": "Loading project...",
+      "retry": "Retry",
+      "notFound": "Project not found",
+      "invalidId": "Invalid project ID",
+      "loadError": "Error loading project",
+      "saveError": "Error saving project",
+      "requiredFields": "Required fields are marked with *",
+      "basicInfo": "Basic Information",
+      "titlePlaceholder": "Enter project title",
+      "type": "Project Type",
+      "category": "Category",
+      "categoryPlaceholder": "Enter project category",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter project description",
+      "goal": "Goal",
+      "goalPlaceholder": "Enter project goal",
+      "timeManagement": "Time Management",
+      "timeCommitment": "Time Commitment",
+      "publishingFrequency": "Publishing Frequency",
+      "customFrequency": "Custom Frequency",
+      "customFrequencyPlaceholder": "Enter your custom publishing frequency",
+      "deadline": "Deadline",
+      "availability": "Availability",
+      "reminderFrequency": "Reminder Frequency",
+      "publishingDetails": "Publishing Details",
+      "publishingPlatform": "Publishing Platform",
+      "wordpressUrl": "WordPress URL",
+      "wordpressUrlPlaceholder": "Enter your WordPress site URL",
+      "substackUrl": "Substack URL",
+      "substackUrlPlaceholder": "Enter your Substack newsletter URL",
+      "customPlatform": "Custom Platform",
+      "customPlatformPlaceholder": "Enter your platform name",
+      "monetization": "Monetization",
+      "monetizationStrategy": "Monetization Strategy",
+      "monetizationGoals": "Monetization Goals",
+      "contentStrategy": "Content Strategy",
+      "contentStrategyPlaceholder": "Describe your content strategy",
+      "seoStrategy": "SEO Strategy",
+      "seoStrategyPlaceholder": "Describe your SEO strategy",
+      "keywords": "Keywords",
+      "keywordsPlaceholder": "Add keywords and press Enter",
+      "structure": "Structure",
+      "progress": "Progress",
+      "targetAudience": "Target Audience",
+      "required": "Required field",
+      "icons": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "retry": "Retry",
+        "info": "Information",
+        "clock": "Time",
+        "globe": "Publishing",
+        "dollar": "Monetization",
+        "pen": "Content"
+      },
+      "validation": {
+        "titleRequired": "Project title is required",
+        "descriptionRequired": "Project description is required",
+        "goalRequired": "Project goal is required",
+        "timeCommitmentRequired": "Time commitment is required",
+        "publishingFrequencyRequired": "Publishing frequency is required",
+        "customFrequencyRequired": "Custom frequency is required when custom publishing frequency is selected",
+        "deadlineRequired": "Deadline is required",
+        "availabilityRequired": "Availability is required",
+        "reminderFrequencyRequired": "Reminder frequency is required",
+        "keywordsRequired": "Keywords are required",
+        "targetAudienceRequired": "Target audience is required",
+        "articleLengthRequired": "Article length is required"
+      },
+      "availability": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      },
+      "timeCommitment": {
+        "casual": "Casual (1 hour/day)",
+        "partTime": "Part-time (3 hours/day)",
+        "fullTime": "Full-time (5 hours/day)"
+      },
+      "frequency": {
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "biweekly": "Bi-weekly",
+        "monthly": "Monthly",
+        "custom": "Custom"
+      },
+      "articleLength": {
+        "short": "Short (150 words)",
+        "medium": "Medium (300 words)",
+        "long": "Long (600 words)",
+        "veryLong": "Very Long (1000 words)",
+        "extensive": "Extensive (2000 words)"
+      },
+      "notifications": {
+        "yes": "Yes",
+        "no": "No"
+      },
+      "receiveNotifications": "Receive Notifications",
+      "targetAudiencePlaceholder": "Describe your target audience",
+      "articleLengthLabel": "Article Length",
+      "addKeyword": "Add Keyword",
+      "removeKeyword": "Remove Keyword",
+      "dayOption": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      },
+      "dayOptionShort": {
+        "monday": "M",
+        "tuesday": "T",
+        "wednesday": "W",
+        "thursday": "T",
+        "friday": "F",
+        "saturday": "S",
+        "sunday": "S"
+      }
+    },
+    "platforms": {
+      "wordpress": "WordPress",
+      "substack": "Substack",
+      "custom": "Custom Platform"
+    },
+    "monetization": {
+      "free": "Free Content",
+      "subscription": "Subscription",
+      "ads": "Advertising",
+      "affiliate": "Affiliate Marketing",
+      "products": "Products/Services",
+      "mixed": "Mixed Strategy",
+      "goals": {
+        "zero": "$0",
+        "weekly100": "$100/week",
+        "weekly1000": "$1,000/week",
+        "weekly5000": "$5,000/week"
+      }
+    },
+    "structure": {
+      "standard": "Standard Blog",
+      "series": "Series of Posts",
+      "tutorial": "Tutorial/How-to"
+    },
+    "frequency": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "biweekly": "Bi-weekly",
+      "monthly": "Monthly",
+      "custom": "Custom"
+    }
+  },
+  "project": {
+    "new": "New Project",
+    "edit": "Edit Project",
+    "delete": "Delete Project",
+    "type": {
+      "blog": "Blog",
+      "book": "Book"
+    }
+  },
+  "editor": {
+    "save": "Save",
+    "preview": "Preview",
+    "settings": "Editor Settings"
+  },
+  "ai": {
+    "assistant": "AI Assistant",
+    "suggest": "Suggest",
+    "expand": "Expand",
+    "outline": "Generate Outline"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "autoSave": "Auto Save",
+    "autoSaveEnabled": "Enable auto-save"
+  },
+  "home": {
+    "latestNews": "Latest News",
+    "writingProgress": "Writing Progress",
+    "totalProjects": "Total Projects",
+    "totalBlogs": "Total Blogs",
+    "totalWords": "Total Words",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "recentProjects": "Recent Projects",
+    "lastEdited": "Last Edited",
+    "description": "Description",
+    "targetAudience": "Target Audience",
+    "recentArticles": "Recent Articles",
+    "noProjects": "No projects yet. Create your first project to get started!",
+    "noArticles": "No articles yet",
+    "community": "Community",
+    "earlyReaders": "Early Readers",
+    "earlyReadersDesc": "Join our early readers program and get exclusive access to new features",
+    "collaboration": "Collaboration",
+    "collaborationDesc": "Connect with other writers and collaborate on projects",
+    "joinNow": "Join Now",
+    "learnMore": "Learn More"
+  },
+  "help": {
+    "title": "Help & Documentation",
+    "gettingStarted": "Getting Started",
+    "gettingStartedContent": "Welcome to stingtaoCreate! This writing assistant helps you create and manage your writing projects. Start by creating a new project from the home page.",
+    "features": "Key Features",
+    "feature1": "AI-powered writing assistance for improved content",
+    "feature2": "Project management for organizing your writing",
+    "feature3": "Collaboration tools for working with others",
+    "shortcuts": "Keyboard Shortcuts",
+    "shortcutSave": "Save current project",
+    "shortcutUndo": "Undo last action",
+    "shortcutRedo": "Redo last undone action"
+  },
+  "newProject": {
+    "title": "Create New Project",
+    "steps": {
+      "type": "Project Type",
+      "details": "Project Details",
+      "time": "Time Commitment",
+      "publishing": "Publishing Platform",
+      "resources": "Resources",
+      "plan": "Project Plan",
+      "goals": "Goals"
+    },
+    "projectType": {
+      "title": "Choose Project Type",
+      "description": "Select the type of project you want to create",
+      "blogDescription": "Create blog posts, articles, or short-form content",
+      "bookDescription": "Write books, novels, or long-form content"
+    },
+    "details": {
+      "title": "Project Details",
+      "description": "Provide information about your project",
+      "inspirationDescription": "Define your audience, research keywords, capture trends, and create content they love. Each project is a step in your journey to make a meaningful impact through your writing.",
+      "projectTitle": "Project Title",
+      "titlePlaceholder": "Enter a title for your project",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe what your project is about",
+      "goal": "Project Goal",
+      "goalPlaceholder": "What do you want to achieve with this project?",
+      "sampleButton": "Get Sample",
+      "sampleTitle": "Sample Description",
+      "sampleCancel": "Cancel",
+      "sampleAnother": "Another",
+      "sampleApply": "Apply",
+      "samples": {
+        "technology": "A comprehensive blog exploring the latest trends in technology, with in-depth analysis and practical tips for readers.",
+        "travel": "A personal journey through the world of travel, sharing experiences, recommendations, and travel hacks for adventurers.",
+        "business": "A resource hub for entrepreneurs looking to start and grow their businesses, with actionable advice and success stories.",
+        "health": "A blog dedicated to healthy living, featuring recipes, workout plans, and wellness tips for a balanced lifestyle.",
+        "education": "An educational platform breaking down complex topics into easy-to-understand content for lifelong learners.",
+        "community": "A community-focused blog bringing together creative professionals to share ideas, techniques, and inspiration.",
+        "learning": "A blog documenting the process of learning a new skill, with progress updates and lessons learned along the way.",
+        "currentEvents": "A platform for discussing current events and their impact on society, with thoughtful analysis and diverse perspectives.",
+        "projects": "A blog showcasing innovative projects and ideas, with behind-the-scenes content and development insights.",
+        "parenting": "A resource for parents navigating the challenges of raising children in the digital age.",
+        "automotive": "A deep dive into the automotive world, covering the latest car models, industry trends, and expert reviews for car enthusiasts.",
+        "ai": "An exploration of artificial intelligence and its applications, sharing personal experiences and insights into this rapidly evolving field.",
+        "cooking": "A culinary journey documenting my cooking adventures, restaurant discoveries, and ingredient explorations with detailed recipes and food photography.",
+        "sustainability": "A blog focused on sustainable living practices, eco-friendly products, and environmental initiatives to inspire positive change.",
+        "mindfulness": "A space dedicated to mindfulness practices, meditation techniques, and strategies for maintaining mental well-being in today's fast-paced world.",
+        "remoteWork": "A guide to remote work success, sharing productivity tips, workspace setup ideas, and strategies for maintaining work-life balance.",
+        "urbanExploration": "A visual and narrative journey through urban landscapes, uncovering hidden gems, architectural wonders, and city stories.",
+        "minimalism": "A blog about minimalist living, decluttering strategies, and finding contentment with less in a consumer-driven world.",
+        "digitalNomad": "A chronicle of life as a digital nomad, sharing travel experiences, remote work tips, and cultural insights from around the world.",
+        "creativeWriting": "A platform for creative writing exercises, prompts, and techniques to help aspiring writers develop their craft and find their voice.",
+        "personalFinance": "A resource for financial literacy, investment strategies, and practical money management tips for individuals at all income levels.",
+        "science": "A blog making complex scientific concepts accessible to the general public, with engaging explanations and real-world applications.",
+        "photography": "A visual storytelling platform sharing photography techniques, equipment reviews, and stunning images from various genres and locations."
+      },
+      "validationMessage": "Please complete all required fields in this section",
+      "titleError": "Project title is required",
+      "descriptionError": "Project description is required"
+    },
+    "goals": {
+      "title": "Your Vision, Your Future",
+      "description": "Set inspiring goals that drive your writing journey. Our step-by-step guide helps you create your unique path to success.",
+      "mainGoal": "Main Goal",
+      "goalPlaceholder": "What is the primary goal of your blog?",
+      "goalHint": "Be specific about what you want to achieve",
+      "impact": "Impact Goal",
+      "impactPlaceholder": "What impact do you want to make?",
+      "impactHint": "Consider how your blog will affect your readers",
+      "audienceValue": "Audience Value",
+      "audienceValuePlaceholder": "What value will you provide to your readers?",
+      "audienceValueHint": "Think about the problems you'll solve for your audience",
+      "personalGrowth": "Personal Growth",
+      "personalGrowthPlaceholder": "How will this blog help you grow?",
+      "personalGrowthHint": "Consider your own learning and development goals",
+      "smartGoals": "SMART Goals",
+      "smartGoalsDescription": "Set Specific, Measurable, Achievable, Relevant, and Time-bound goals",
+      "specific": "Specific",
+      "specificPlaceholder": "What exactly will you accomplish?",
+      "measurable": "Measurable",
+      "measurablePlaceholder": "How will you measure success?",
+      "achievable": "Achievable",
+      "achievablePlaceholder": "Is this goal realistic?",
+      "relevant": "Relevant",
+      "relevantPlaceholder": "Why is this goal important?",
+      "timebound": "Time-bound",
+      "timeboundPlaceholder": "When will you achieve this goal?",
+      "motivation": "Motivation",
+      "motivationDescription": "Understand your motivation and potential obstacles",
+      "motivationQuestion": "What motivates you to start this blog?",
+      "motivationPlaceholder": "Describe your motivation...",
+      "obstacles": "Potential Obstacles",
+      "obstaclesPlaceholder": "What challenges might you face?",
+      "solutions": "Solutions",
+      "solutionsPlaceholder": "How will you overcome these obstacles?",
+      "inspirationTitle": "Need Inspiration?",
+      "inspirationCancel": "Cancel",
+      "inspirationApply": "Apply to Goal",
+      "validationMessage": "Define your main goal to proceed",
+      "errorMessage": "Please enter your main goal"
+    },
+    "time": {
+      "title": "Time Commitment",
+      "description": "Set your time commitment and availability",
+      "commitment": "Time Commitment Level",
+      "options": {
+        "casual": "Casual (1 hour/day)",
+        "partTime": "Part-time (3 hours/day)",
+        "fullTime": "Full-time (5 hours/day)"
+      },
+      "deadline": "Project Deadline",
+      "duration": "Project Duration",
+      "durations": {
+        "days30": "30 Days",
+        "days60": "60 Days",
+        "days90": "90 Days"
+      },
+      "availability": "Available Days",
+      "publishingFrequency": "Publishing Frequency",
+      "frequency": {
+        "weekly": "Weekly",
+        "biweekly": "Bi-weekly",
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "custom": "Custom"
+      },
+      "customFrequency": "Custom Frequency",
+      "customFrequencyPlaceholder": "Describe your publishing schedule",
+      "reminderFrequency": "Reminder Frequency",
+      "reminder": {
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "biweekly": "Bi-weekly",
+        "monthly": "Monthly",
+        "none": "No Reminders"
+      },
+      "commitmentMessage": "You will commit {hours} hours per month to this project",
+      "commitmentDetails": "{daysPerWeek} days/week × {hoursPerDay} hour/day × {weeksPerMonth} weeks/month = {hoursPerMonth} hours/month",
+      "validationMessage": "Please set your time commitment",
+      "availabilityError": "Select at least one available day",
+      "commitmentError": "Please select your time commitment level",
+      "frequencyError": "Please select your publishing frequency"
+    },
+    "publishing": {
+      "title": "Publishing Platform",
+      "description": "Choose where to publish your blog",
+      "platform": "Platform",
+      "platforms": {
+        "wordpress": "WordPress",
+        "substack": "Substack",
+        "medium": "Medium",
+        "custom": "Custom Platform"
+      },
+      "wordpressUrl": "WordPress URL",
+      "wordpressUrlPlaceholder": "Enter your WordPress site URL",
+      "substackUrl": "Substack URL",
+      "substackUrlPlaceholder": "Enter your Substack newsletter URL",
+      "customPlatform": "Custom Platform",
+      "customPlatformPlaceholder": "Enter your platform name",
+      "monetization": "Monetization",
+      "monetizationDescription": "Define your monetization strategy",
+      "monetizationStrategy": "Monetization Strategy",
+      "strategies": {
+        "free": "Free Content",
+        "subscription": "Subscription",
+        "ads": "Advertising",
+        "affiliate": "Affiliate Marketing",
+        "products": "Products/Services",
+        "mixed": "Mixed Strategy"
+      },
+      "monetizationGoals": "Monetization Goals",
+      "monetizationGoalsPlaceholder": "Describe your monetization goals and targets",
+      "goals": {
+        "zero": "$0",
+        "weekly100": "$100/week",
+        "weekly1000": "$1,000/week",
+        "weekly5000": "$5,000/week"
+      },
+      "validationMessage": "Please complete your publishing details",
+      "platformError": "Select a publishing platform",
+      "urlError": {
+        "wordpress": "Please enter your WordPress URL",
+        "substack": "Please enter your Substack URL",
+        "custom": "Please enter your platform name"
+      }
+    },
+    "resources": {
+      "title": "Project Resources",
+      "description": "Add resources and references for your project",
+      "keywords": "Keywords",
+      "keywordsPlaceholder": "Add keywords and press Enter",
+      "existingResources": "Existing Resources",
+      "uploadText": "Click to upload files (PDF, DOC, PPT, etc.)",
+      "reference_links": "References & Links",
+      "reference_linksPlaceholder": "Add links to websites, articles, or other resources",
+      "targetAudience": "Target Audience",
+      "targetAudiencePlaceholder": "Describe your ideal reader"
+    },
+    "plan": {
+      "title": "Project Plan",
+      "description": "Review your project plan and timeline",
+      "summary": "Project Summary",
+      "timeline": "Timeline",
+      "start": "Start Date",
+      "startDescription": "Begin your project",
+      "deadline": "Deadline",
+      "deadlineDescription": "Complete your project",
+      "actionItems": "Action Items",
+      "outline": "Create Outline",
+      "outlineDescription": "Develop a structured outline for your content",
+      "research": "Research",
+      "researchDescription": "Gather information and resources",
+      "draft": "Write Draft",
+      "draftDescription": "Write the first draft of your content",
+      "review": "Review & Edit",
+      "reviewDescription": "Review, edit, and refine your content",
+      "publish": "Publish",
+      "publishDescription": "Publish and promote your content",
+      "contentStrategy": "Content Strategy",
+      "contentStrategyPlaceholder": "Describe your content strategy and themes",
+      "seoStrategy": "SEO Strategy",
+      "seoStrategyPlaceholder": "Outline your SEO approach and keywords",
+      "notifications": "I want to receive notifications about my project"
+    },
+    "navigation": {
+      "prev": "Previous",
+      "next": "Next",
+      "create": "Create Project"
+    },
+    "blog": {
+      "category": "Blog Category",
+      "categories": {
+        "technology": "Technology",
+        "lifestyle": "Lifestyle",
+        "travel": "Travel",
+        "food": "Food",
+        "personal": "Personal",
+        "business": "Business",
+        "education": "Education",
+        "health": "Health"
+      },
+      "structure": "Blog Structure",
+      "structures": {
+        "standard": "Standard Blog",
+        "series": "Series of Posts",
+        "tutorial": "Tutorial/How-to",
+        "review": "Review/Comparison",
+        "interview": "Interview",
+        "caseStudy": "Case Study"
+      },
+      "articleLength": "Article Length",
+      "articleLengths": {
+        "short": "Short",
+        "medium": "Medium",
+        "long": "Long",
+        "veryLong": "Very Long",
+        "extensive": "Extensive"
+      },
+      "words": "words",
+      "selectCategory": "Select a blog category",
+      "selectLength": "Select article length",
+      "categoryError": "Please select a blog category",
+      "lengthError": "Please select an article length"
+    },
+    "book": {
+      "genre": "Book Genre",
+      "genres": {
+        "fiction": "Fiction",
+        "nonFiction": "Non-Fiction",
+        "biography": "Biography",
+        "selfHelp": "Self-Help"
+      },
+      "structure": "Book Structure",
+      "structures": {
+        "standard": "Standard Book",
+        "series": "Book Series",
+        "tutorial": "Tutorial/Guide",
+        "review": "Review/Analysis"
+      }
+    },
+    "requiredFields": "* Required fields",
+    "validation": {
+      "required": "This field is required",
+      "titleError": "Please enter a project title",
+      "descriptionError": "Please provide a project description",
+      "categoryError": "Please select a category",
+      "goalError": "Please define your project goal",
+      "availabilityError": "Please select at least one available day",
+      "platformError": "Please select a publishing platform",
+      "urlError": "Please enter a valid URL",
+      "customPlatformError": "Please enter your platform name"
+    },
+    "form": {
+      "incompleteError": "Please complete all required fields",
+      "selectCategory": "Select a category",
+      "selectLength": "Select article length",
+      "validationMessage": "Some required fields need your attention",
+      "proceedMessage": "All required fields are complete. You can proceed."
+    }
+  }
+} 

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "package": {
+    "productName": "stingtaocreatedesktop",
+    "version": "0.1.0"
+  },
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "distDir": "../dist",
+    "devPath": "http://localhost:4000"
+  },
+  "tauri": {
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "com.stingtaocreatedesktop.app",
+      "icon": [
+        "icons/stingtaoCreateDesktop_macos_32x32.png",
+        "icons/stingtaoCreateDesktop_macos_32x32.png",
+        "icons/stingtaoCreateDesktop_macos_256x256.png",
+        "icons/stingtaoCreateDesktop_rebuild.icns",
+        "icons/stingtaoCreateDesktop_rebuild_windows.ico"
+      ]
+    },
+    "windows": [
+      {
+        "title": "stingtaocreatedesktop",
+        "width": 800,
+        "height": 600
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  }
+}

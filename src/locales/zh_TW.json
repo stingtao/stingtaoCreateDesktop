@@ -1,0 +1,213 @@
+{
+  "app": {
+    "title": "stingtaoCreate",
+    "description": "寫作助手"
+  },
+  "nav": {
+    "projects": "專案",
+    "home": "首頁",
+    "settings": "設定",
+    "help": "幫助"
+  },
+  "project": {
+    "new": "新增專案",
+    "edit": "編輯專案",
+    "delete": "刪除專案",
+    "type": {
+      "blog": "部落格",
+      "book": "書籍"
+    }
+  },
+  "editor": {
+    "save": "儲存",
+    "preview": "預覽",
+    "settings": "編輯器設定"
+  },
+  "ai": {
+    "assistant": "AI 助手",
+    "suggest": "建議",
+    "expand": "擴充",
+    "outline": "生成大綱"
+  },
+  "settings": {
+    "title": "設定",
+    "language": "語言",
+    "theme": "主題",
+    "themeLight": "淺色",
+    "themeDark": "深色",
+    "autoSave": "自動儲存",
+    "autoSaveEnabled": "啟用自動儲存"
+  },
+  "home": {
+    "latestNews": "最新消息",
+    "writingProgress": "寫作進度",
+    "totalProjects": "總專案數",
+    "inProgress": "進行中",
+    "completed": "已完成",
+    "recentProjects": "最近的專案",
+    "lastEdited": "最後編輯",
+    "community": "社群消息",
+    "earlyReaders": "早期讀者計劃",
+    "earlyReadersDesc": "加入我們的早期讀者計劃，獲得第一手的寫作回饋",
+    "collaboration": "協作功能",
+    "collaborationDesc": "與其他作者合作，共同創作精彩的作品",
+    "joinNow": "立即加入",
+    "learnMore": "了解更多"
+  },
+  "help": {
+    "title": "幫助與文件",
+    "gettingStarted": "開始使用",
+    "gettingStartedContent": "歡迎使用 stingtaoCreate！這個寫作助手可以幫助您創建和管理寫作專案。從首頁開始創建新專案。",
+    "features": "主要功能",
+    "feature1": "AI 寫作助手：智能提供寫作建議和內容擴充",
+    "feature2": "多格式支援：支援部落格和書籍等多種寫作格式",
+    "feature3": "協作功能：與其他作者共同創作",
+    "shortcuts": "快捷鍵",
+    "shortcutSave": "儲存當前文件",
+    "shortcutUndo": "復原上一步操作",
+    "shortcutRedo": "重做上一步操作"
+  },
+  "newProject": {
+    "title": "建立新專案",
+    "steps": {
+      "type": "專案類型",
+      "details": "專案詳情",
+      "time": "時間規劃",
+      "publishing": "發布平台",
+      "resources": "資源",
+      "plan": "專案計劃",
+      "goals": "目標"
+    },
+    "details": {
+      "title": "專案詳情",
+      "description": "提供關於您專案的資訊",
+      "inspirationDescription": "設定您的聽眾目標，研究關鍵字，抓取趨勢，寫出他們喜愛的內容。每個專案都是您透過寫作產生有意義影響的旅程中的一步。",
+      "projectTitle": "專案標題",
+      "titlePlaceholder": "為您的專案輸入標題",
+      "description": "描述",
+      "descriptionPlaceholder": "描述您的專案內容",
+      "goal": "專案目標",
+      "goalPlaceholder": "您希望透過這個專案達成什麼目標？",
+      "samples": {
+        "technology": "一個全面的部落格，探索科技的最新趨勢，提供深入分析和實用技巧給讀者。",
+        "travel": "一段穿越世界的個人旅程，分享經驗、推薦和旅行技巧，為冒險者提供指南。",
+        "business": "為想要創業和發展業務的企業家提供的資源中心，包含可行的建議和成功案例。",
+        "health": "專注於健康生活的部落格，提供食譜、運動計劃和健康提示，幫助讀者過上平衡的生活。",
+        "education": "一個教育平台，將複雜主題分解為易於理解的內容，適合終身學習者。",
+        "community": "一個以社群為中心的部落格，匯集創意專業人士分享想法、技巧和靈感。",
+        "learning": "記錄學習新技能的過程，提供進度更新和經驗教訓。",
+        "currentEvents": "討論當前事件及其對社會影響的平台，提供深思熟慮的分析和多元觀點。",
+        "projects": "展示創新項目和想法的部落格，包含幕後內容和開發見解。",
+        "parenting": "為在數位時代撫養孩子的父母提供的資源。",
+        "automotive": "深入探索汽車世界，涵蓋最新車型、行業趨勢和專家評測，為汽車愛好者提供資訊。",
+        "ai": "探索人工智慧及其應用，分享個人經驗和對這個快速發展領域的見解。",
+        "cooking": "記錄我的烹飪冒險、餐廳發現和食材探索的烹飪之旅，包含詳細食譜和美食攝影。",
+        "sustainability": "專注於永續生活實踐、環保產品和環境倡議的部落格，激發積極變革。",
+        "mindfulness": "專注於正念練習、冥想技巧和維持當今快節奏世界中心理健康的策略。",
+        "remoteWork": "遠程工作成功指南，分享生產力技巧、工作空間設置想法和維持工作與生活平衡的策略。",
+        "urbanExploration": "通過城市景觀的視覺和敘事之旅，發掘隱藏的寶藏、建築奇觀和城市故事。",
+        "minimalism": "關於極簡主義生活、整理策略和在消費驅動的世界中尋找滿足感的部落格。",
+        "digitalNomad": "作為數位游牧者的生活編年史，分享旅行經驗、遠程工作技巧和來自世界各地的文化見解。",
+        "creativeWriting": "為有抱負的作家提供創意寫作練習、提示和技巧的平台，幫助他們發展技能並找到自己的聲音。",
+        "personalFinance": "為各個收入水平的個人提供金融素養、投資策略和實用理財技巧的資源。",
+        "science": "使複雜科學概念易於公眾理解的部落格，提供引人入勝的解釋和實際應用。",
+        "photography": "分享攝影技巧、設備評測和來自各種流派和地點的驚人圖像的視覺敘事平台。"
+      }
+    },
+    "goals": {
+      "title": "您的願景，您的未來",
+      "description": "設定激勵人心的目標，推動您的寫作之旅。我們的逐步指南幫助您創造獨特的成功之路。",
+      "mainGoal": "主要目標",
+      "goalPlaceholder": "您部落格的主要目標是什麼？",
+      "goalHint": "具體說明您想要達成的目標",
+      "inspirationTitle": "需要靈感？",
+      "inspirationCancel": "取消",
+      "inspirationApply": "應用到目標"
+    },
+    "blog": {
+      "category": "部落格類別",
+      "categories": {
+        "technology": "科技",
+        "lifestyle": "生活風格",
+        "travel": "旅遊",
+        "food": "美食",
+        "personal": "個人",
+        "business": "商業",
+        "education": "教育",
+        "health": "健康"
+      },
+      "structure": "部落格結構",
+      "structures": {
+        "standard": "標準部落格",
+        "series": "系列文章",
+        "tutorial": "教學/指南",
+        "review": "評論/比較",
+        "interview": "訪談",
+        "caseStudy": "案例研究"
+      },
+      "articleLength": "文章長度",
+      "articleLengths": {
+        "short": "短",
+        "medium": "中",
+        "long": "長",
+        "veryLong": "很長",
+        "extensive": "非常長"
+      },
+      "words": "字"
+    },
+    "time": {
+      "title": "時間投入",
+      "description": "設定您的時間投入和可用性",
+      "commitment": "時間投入程度",
+      "options": {
+        "casual": "休閒 (每天1小時)",
+        "partTime": "兼職 (每天3小時)",
+        "fullTime": "全職 (每天5小時)"
+      }
+    }
+  },
+  "bookProject": {
+    "basicInfo": "基本資訊",
+    "title": "書名",
+    "titlePlaceholder": "請輸入您的書名",
+    "genre": "類型",
+    "genres": {
+      "fiction": "小說",
+      "nonFiction": "非小說",
+      "biography": "傳記",
+      "selfHelp": "自助"
+    },
+    "targetAudience": "目標讀者",
+    "targetAudiencePlaceholder": "請描述您的目標讀者群",
+    "timeCommitment": "時間規劃",
+    "estimatedWordCount": "預計字數",
+    "deadline": "截止日期",
+    "writingSchedule": "寫作進度",
+    "schedules": {
+      "flexible": "彈性安排",
+      "daily": "每日固定",
+      "weekly": "每週固定"
+    },
+    "resources": "資源",
+    "researchMaterials": "研究資料",
+    "researchMaterialsPlaceholder": "列出您需要的研究資料和參考文獻",
+    "reference_links": "參考資料",
+    "reference_linksPlaceholder": "列出您計劃參考的書籍、文章或其他資源",
+    "bookPlan": "書籍規劃",
+    "synopsis": "內容簡介",
+    "synopsisPlaceholder": "請描述您的書籍主要內容和目標",
+    "chapterOutline": "章節大綱",
+    "chapterOutlinePlaceholder": "列出主要章節和內容概要",
+    "steps": {
+      "basicInfo": "基本資訊",
+      "timeCommitment": "時間規劃",
+      "resources": "資源",
+      "bookPlan": "書籍規劃"
+    }
+  },
+  "common": {
+    "previous": "上一步",
+    "next": "下一步",
+    "create": "建立專案"
+  }
+} 

@@ -69,6 +69,11 @@
   },
   "newProject": {
     "title": "建立新專案",
+    "popup": {
+      "title": "開發中",
+      "message": "書籍專案功能正在開發中，請稍後再試。",
+      "close": "關閉"
+    },
     "steps": {
       "type": "專案類型",
       "details": "專案詳情",

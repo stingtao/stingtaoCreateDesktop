@@ -326,6 +326,11 @@
   },
   "newProject": {
     "title": "Create New Project",
+    "popup": {
+      "title": "Under Development",
+      "message": "The book project feature is currently under development. Please check back later.",
+      "close": "Close"
+    },
     "steps": {
       "type": "Project Type",
       "details": "Project Details",

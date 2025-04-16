@@ -321,7 +321,8 @@ h1 {
 
 .confirm-btn {
   background-color: var(--color-danger);
-  color: white;
+  color: var(--color-text-on-primary);
+  font-weight: 500;
 }
 
 .confirm-btn:hover {

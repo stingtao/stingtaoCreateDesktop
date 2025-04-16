@@ -14,6 +14,29 @@ StingtaoCreateDesktop is an AI-powered desktop application that helps content cr
 - 🔄 Content history with undo/redo support
 - 🎯 Project-based content organization
 
+## Screenshots
+
+### Application Interface
+![Project Interface](screenshots/Screenshot%202025-04-17%20at%202.27.55%20AM.png)
+
+### Project Management
+![Project Management](screenshots/Screenshot%202025-04-17%20at%202.28.25%20AM.png)
+
+### Article Editor
+![Article Editor](screenshots/Screenshot%202025-04-17%20at%202.29.42%20AM.png)
+
+### AI Assistant Panel
+![AI Assistant](screenshots/Screenshot%202025-04-17%20at%202.30.14%20AM.png)
+
+### Easy management
+![Content Creation](screenshots/Screenshot%202025-04-17%20at%202.31.12%20AM.png)
+
+### Select sentences for AI to assist you
+![inline support](screenshots/Screenshot%202025-04-17%20at%202.33.39%20AM.png)
+
+### Write your prompt while you are thinking with your work
+![Seamless integration](screenshots/Screenshot%202025-04-17%20at%202.33.52%20AM.png)
+
 ## Getting Started
 
 ### Prerequisites
@@ -26,7 +49,7 @@ StingtaoCreateDesktop is an AI-powered desktop application that helps content cr
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/StingtaoCreateDesktop.git
+   git clone https://github.com/stingtao/StingtaoCreateDesktop.git
    cd StingtaoCreateDesktop
    ```
 

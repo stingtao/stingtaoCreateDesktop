@@ -124,7 +124,7 @@
       "customFrequency": "Custom Frequency",
       "customFrequencyPlaceholder": "Enter your custom publishing frequency",
       "deadline": "Deadline",
-      "availability": "Availability",
+      "availability": "Available Days",
       "reminderFrequency": "Reminder Frequency",
       "publishingDetails": "Publishing Details",
       "publishingPlatform": "Publishing Platform",
@@ -171,34 +171,6 @@
         "targetAudienceRequired": "Target audience is required",
         "articleLengthRequired": "Article length is required"
       },
-      "availability": {
-        "monday": "Monday",
-        "tuesday": "Tuesday",
-        "wednesday": "Wednesday",
-        "thursday": "Thursday",
-        "friday": "Friday",
-        "saturday": "Saturday",
-        "sunday": "Sunday"
-      },
-      "timeCommitment": {
-        "casual": "Casual (1 hour/day)",
-        "partTime": "Part-time (3 hours/day)",
-        "fullTime": "Full-time (5 hours/day)"
-      },
-      "frequency": {
-        "daily": "Daily",
-        "weekly": "Weekly",
-        "biweekly": "Bi-weekly",
-        "monthly": "Monthly",
-        "custom": "Custom"
-      },
-      "articleLength": {
-        "short": "Short (150 words)",
-        "medium": "Medium (300 words)",
-        "long": "Long (600 words)",
-        "veryLong": "Very Long (1000 words)",
-        "extensive": "Extensive (2000 words)"
-      },
       "notifications": {
         "yes": "Yes",
         "no": "No"
@@ -207,25 +179,7 @@
       "targetAudiencePlaceholder": "Describe your target audience",
       "articleLengthLabel": "Article Length",
       "addKeyword": "Add Keyword",
-      "removeKeyword": "Remove Keyword",
-      "dayOption": {
-        "monday": "Monday",
-        "tuesday": "Tuesday",
-        "wednesday": "Wednesday",
-        "thursday": "Thursday",
-        "friday": "Friday",
-        "saturday": "Saturday",
-        "sunday": "Sunday"
-      },
-      "dayOptionShort": {
-        "monday": "M",
-        "tuesday": "T",
-        "wednesday": "W",
-        "thursday": "T",
-        "friday": "F",
-        "saturday": "S",
-        "sunday": "S"
-      }
+      "removeKeyword": "Remove Keyword"
     },
     "platforms": {
       "wordpress": "WordPress",
@@ -435,11 +389,6 @@
       "title": "Time Commitment",
       "description": "Set your time commitment and availability",
       "commitment": "Time Commitment Level",
-      "options": {
-        "casual": "Casual (1 hour/day)",
-        "partTime": "Part-time (3 hours/day)",
-        "fullTime": "Full-time (5 hours/day)"
-      },
       "deadline": "Project Deadline",
       "duration": "Project Duration",
       "durations": {
@@ -628,6 +577,38 @@
       "selectLength": "Select article length",
       "validationMessage": "Some required fields need your attention",
       "proceedMessage": "All required fields are complete. You can proceed."
+    }
+  },
+  "common": {
+    "timeCommitment": {
+      "casual": "Casual (1 hour/day)",
+      "partTime": "Part-time (3 hours/day)",
+      "fullTime": "Full-time (5 hours/day)"
+    },
+    "availability": {
+      "label": "Available Days",
+      "validation": {
+        "required": "Availability is required",
+        "selectOne": "Select at least one available day"
+      },
+      "days": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      },
+      "daysShort": {
+        "monday": "M",
+        "tuesday": "T",
+        "wednesday": "W",
+        "thursday": "T",
+        "friday": "F",
+        "saturday": "S",
+        "sunday": "S"
+      }
     }
   }
 } 

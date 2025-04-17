@@ -9,6 +9,144 @@
     "settings": "設定",
     "help": "ヘルプ"
   },
+  "projects": {
+    "title": "プロジェクト",
+    "newProject": "新規プロジェクト",
+    "actions": {
+      "edit": "編集",
+      "delete": "削除",
+      "addArticle": "記事を追加"
+    },
+    "created": "作成日",
+    "updated": "更新日",
+    "startDate": "開始日",
+    "endDate": "終了日",
+    "goal": "目標",
+    "description": "説明",
+    "targetAudience": "ターゲット読者",
+    "frequency": "投稿頻度",
+    "notSet": "未設定",
+    "empty": {
+      "title": "プロジェクトがありません",
+      "description": "最初のプロジェクトを作成して、執筆の旅を始めましょう",
+      "start": "プロジェクトを作成"
+    },
+    "deleteModal": {
+      "title": "プロジェクトの削除",
+      "confirmation": "'{title}'を削除してもよろしいですか？",
+      "secondTitle": "最終確認",
+      "secondConfirmation": "警告：'{title}'とそれに関連するすべての記事が完全に削除されます。この操作は取り消せません。本当によろしいですか？",
+      "cancel": "キャンセル",
+      "confirm": "削除"
+    },
+    "deleteError": "プロジェクトの削除中にエラーが発生しました",
+    "setEndDate": "終了日を入力してください (YYYY-MM-DD):",
+    "invalidDate": "無効な日付形式です。YYYY-MM-DD形式を使用してください",
+    "types": {
+      "blog": "ブログ",
+      "book": "書籍",
+      "course": "コース"
+    },
+    "status": {
+      "active": "進行中",
+      "completed": "完了",
+      "archived": "アーカイブ",
+      "draft": "下書き"
+    },
+    "card": {
+      "viewDetails": "詳細を表示",
+      "lastUpdated": "最終更新",
+      "articles": "記事",
+      "noArticles": "記事がありません",
+      "dueDate": "期限",
+      "progress": "進捗"
+    },
+    "tooltips": {
+      "edit": "プロジェクトの詳細を編集",
+      "delete": "このプロジェクトを削除",
+      "addArticle": "このプロジェクトに新しい記事を追加",
+      "setEndDate": "プロジェクトの終了日を設定"
+    },
+    "metrics": {
+      "totalProjects": "プロジェクト総数",
+      "activeProjects": "進行中のプロジェクト",
+      "completedProjects": "完了したプロジェクト",
+      "totalArticles": "記事総数",
+      "totalWords": "総単語数"
+    },
+    "editForm": {
+      "title": "プロジェクトの編集",
+      "save": "変更を保存",
+      "saving": "保存中...",
+      "cancel": "キャンセル",
+      "loading": "プロジェクトを読み込み中...",
+      "retry": "再試行",
+      "notFound": "プロジェクトが見つかりません",
+      "invalidId": "無効なプロジェクトID",
+      "loadError": "プロジェクトの読み込みエラー",
+      "saveError": "プロジェクトの保存エラー",
+      "requiredFields": "*印の付いた項目は必須です",
+      "basicInfo": "基本情報",
+      "titlePlaceholder": "プロジェクトのタイトルを入力",
+      "type": "プロジェクトタイプ",
+      "category": "カテゴリー",
+      "categoryPlaceholder": "プロジェクトのカテゴリーを入力",
+      "description": "説明",
+      "descriptionPlaceholder": "プロジェクトの説明を入力",
+      "goal": "目標",
+      "goalPlaceholder": "プロジェクトの目標を入力",
+      "timeManagement": "時間管理",
+      "timeCommitment": "時間の投入",
+      "publishingFrequency": "投稿頻度",
+      "customFrequency": "カスタム頻度",
+      "customFrequencyPlaceholder": "カスタムの投稿頻度を入力",
+      "deadline": "期限",
+      "availability": "利用可能な曜日",
+      "reminderFrequency": "リマインダー頻度",
+      "publishingDetails": "公開の詳細",
+      "publishingPlatform": "公開プラットフォーム",
+      "wordpressUrl": "WordPress URL",
+      "wordpressUrlPlaceholder": "WordPressサイトのURLを入力",
+      "substackUrl": "Substack URL",
+      "substackUrlPlaceholder": "SubstackニュースレターのURLを入力",
+      "customPlatform": "カスタムプラットフォーム",
+      "customPlatformPlaceholder": "プラットフォーム名を入力",
+      "monetization": "収益化",
+      "monetizationStrategy": "収益化戦略",
+      "monetizationGoals": "収益目標",
+      "contentStrategy": "コンテンツ戦略",
+      "contentStrategyPlaceholder": "コンテンツ戦略を説明",
+      "seoStrategy": "SEO戦略",
+      "seoStrategyPlaceholder": "SEO戦略を説明",
+      "keywords": "キーワード",
+      "keywordsPlaceholder": "キーワードを入力してEnterを押す",
+      "structure": "構造",
+      "progress": "進捗",
+      "targetAudience": "ターゲット読者",
+      "required": "必須項目",
+      "validation": {
+        "titleRequired": "プロジェクトタイトルは必須です",
+        "descriptionRequired": "プロジェクトの説明は必須です",
+        "goalRequired": "プロジェクトの目標は必須です",
+        "timeCommitmentRequired": "時間の投入は必須です",
+        "publishingFrequencyRequired": "投稿頻度は必須です",
+        "customFrequencyRequired": "カスタム頻度を選択した場合、カスタム頻度の入力は必須です",
+        "deadlineRequired": "期限は必須です",
+        "availabilityRequired": "利用可能な曜日は必須です",
+        "reminderFrequencyRequired": "リマインダー頻度は必須です",
+        "keywordsRequired": "キーワードは必須です",
+        "targetAudienceRequired": "ターゲット読者は必須です",
+        "articleLengthRequired": "記事の長さは必須です"
+      },
+      "notifications": {
+        "yes": "はい",
+        "no": "いいえ"
+      },
+      "receiveNotifications": "通知を受け取る",
+      "targetAudiencePlaceholder": "ターゲット読者を説明",
+      "articleLengthLabel": "記事の長さ"
+    }
+  },
   "project": {
     "new": "新規プロジェクト",
     "edit": "プロジェクト編集",
@@ -38,98 +176,71 @@
     "autoSave": "自動保存",
     "autoSaveEnabled": "自動保存を有効にする"
   },
-  "newProject": {
-    "title": "新規プロジェクト作成",
-    "popup": {
-      "title": "開発中",
-      "message": "書籍プロジェクト機能は現在開発中です。後ほどご確認ください。",
-      "close": "閉じる"
+  "home": {
+    "latestNews": "最新ニュース",
+    "writingProgress": "執筆の進捗",
+    "totalProjects": "プロジェクト総数",
+    "totalBlogs": "ブログ総数",
+    "totalWords": "総単語数",
+    "inProgress": "進行中",
+    "completed": "完了",
+    "recentProjects": "最近のプロジェクト",
+    "lastEdited": "最終編集",
+    "description": "説明",
+    "targetAudience": "ターゲット読者",
+    "recentArticles": "最近の記事",
+    "noProjects": "プロジェクトがありません。最初のプロジェクトを作成して始めましょう！",
+    "noArticles": "記事がありません",
+    "community": "コミュニティ",
+    "earlyReaders": "アーリーリーダー",
+    "earlyReadersDesc": "アーリーリーダープログラムに参加して、新機能への優先アクセスを得る",
+    "collaboration": "コラボレーション",
+    "collaborationDesc": "他の執筆者とつながり、プロジェクトで協力する",
+    "joinNow": "今すぐ参加",
+    "learnMore": "詳細を見る"
+  },
+  "help": {
+    "title": "ヘルプ＆ドキュメント",
+    "gettingStarted": "はじめに",
+    "gettingStartedContent": "stingtaoCreateへようこそ！この執筆アシスタントは、執筆プロジェクトの作成と管理をサポートします。ホームページから新しいプロジェクトを作成して始めましょう。",
+    "features": "主な機能",
+    "feature1": "AIパワードの執筆支援でコンテンツを改善",
+    "feature2": "執筆を整理するためのプロジェクト管理",
+    "feature3": "他の人と協力するためのコラボレーションツール",
+    "shortcuts": "キーボードショートカット",
+    "shortcutSave": "現在のプロジェクトを保存",
+    "shortcutUndo": "最後の操作を取り消し",
+    "shortcutRedo": "取り消した操作をやり直し"
+  },
+  "common": {
+    "timeCommitment": {
+      "casual": "カジュアル (1時間/日)",
+      "partTime": "パートタイム (3時間/日)",
+      "fullTime": "フルタイム (5時間/日)"
     },
-    "steps": {
-      "type": "プロジェクトタイプ",
-      "details": "プロジェクト詳細",
-      "time": "時間の確保",
-      "publishing": "公開プラットフォーム",
-      "resources": "リソース",
-      "plan": "プロジェクト計画",
-      "goals": "目標"
-    },
-    "blog": {
-      "category": "ブログカテゴリー",
-      "categories": {
-        "technology": "テクノロジー",
-        "lifestyle": "ライフスタイル",
-        "travel": "旅行",
-        "food": "フード",
-        "personal": "パーソナル",
-        "business": "ビジネス",
-        "education": "教育",
-        "health": "健康"
+    "availability": {
+      "label": "利用可能な曜日",
+      "validation": {
+        "required": "利用可能な曜日は必須です",
+        "selectOne": "少なくとも1つの曜日を選択してください"
       },
-      "structure": "ブログ構造",
-      "structures": {
-        "standard": "標準ブログ",
-        "series": "シリーズ投稿",
-        "tutorial": "チュートリアル/ハウツー",
-        "review": "レビュー/比較",
-        "interview": "インタビュー",
-        "caseStudy": "ケーススタディ"
+      "days": {
+        "monday": "月曜日",
+        "tuesday": "火曜日",
+        "wednesday": "水曜日",
+        "thursday": "木曜日",
+        "friday": "金曜日",
+        "saturday": "土曜日",
+        "sunday": "日曜日"
       },
-      "articleLength": "記事の長さ",
-      "articleLengths": {
-        "short": "短い",
-        "medium": "中程度",
-        "long": "長い",
-        "veryLong": "非常に長い",
-        "extensive": "広範"
-      },
-      "words": "単語"
-    },
-    "time": {
-      "title": "時間の投入",
-      "description": "時間の投入と利用可能な時間を設定",
-      "commitment": "時間の投入レベル",
-      "options": {
-        "casual": "カジュアル (1時間/日)",
-        "partTime": "パートタイム (3時間/日)",
-        "fullTime": "フルタイム (5時間/日)"
-      }
-    },
-    "details": {
-      "samples": {
-        "technology": "テクノロジーの最新トレンドを探求し、読者に深い分析と実用的なヒントを提供する包括的なブログ。",
-        "travel": "世界中を旅する個人的な旅の記録。経験、おすすめ、旅行のヒントを共有し、冒険好きな人々のためのガイドを提供。",
-        "business": "起業家やビジネス成長を目指す人々のためのリソースセンター。実践的なアドバイスと成功事例を提供。",
-        "health": "健康的な生活に焦点を当てたブログ。レシピ、エクササイズプラン、健康のヒントを提供し、読者がバランスの取れた生活を送れるようサポート。",
-        "education": "複雑なトピックを理解しやすい内容に分解する教育プラットフォーム。生涯学習者に最適。",
-        "community": "クリエイティブな専門家がアイデア、テクニック、インスピレーションを共有するコミュニティ中心のブログ。",
-        "learning": "新しいスキルの学習プロセスを記録し、進捗状況と学んだ教訓を提供。",
-        "currentEvents": "現在の出来事とその社会への影響について議論するプラットフォーム。思慮深い分析と多様な視点を提供。",
-        "projects": "革新的なプロジェクトやアイデアを紹介するブログ。舞台裏の内容や開発の洞察を含む。",
-        "parenting": "デジタル時代に子育てをする親のためのリソース。",
-        "automotive": "自動車の世界を深く探求し、最新モデル、業界トレンド、専門家のレビューをカバー。自動車愛好家のための情報を提供。",
-        "ai": "人工知能とその応用についての探求。この急速に発展する分野における個人的な経験と洞察を共有。",
-        "cooking": "私の料理の冒険、レストランの発見、食材の探求を記録する料理の旅。詳細なレシピと料理写真を含む。",
-        "sustainability": "持続可能な生活習慣、エコフレンドリーな製品、環境イニシアチブに焦点を当てたブログ。ポジティブな変化を促す。",
-        "mindfulness": "マインドフルネスの実践、瞑想テクニック、現代の忙しい世界でのメンタルヘルスを維持するための戦略に焦点を当てる。",
-        "remoteWork": "リモートワーク成功のガイド。生産性のヒント、ワークスペースのセットアップアイデア、ワークライフバランスを維持するための戦略を共有。",
-        "urbanExploration": "都市景観を通じた視覚的・物語的な旅。隠れた宝物、建築の驚異、都市の物語を発見。",
-        "minimalism": "ミニマリストの生活、片付けの戦略、消費主導の世界でより少ないもので満足を見つけることについてのブログ。",
-        "digitalNomad": "デジタルノマドとしての生活の記録。旅行体験、リモートワークのヒント、世界中からの文化的洞察を共有。",
-        "creativeWriting": "志望する作家が技術を発展させ、自分の声を見つけるのを助けるためのクリエイティブライティングの練習、プロンプト、テクニックのプラットフォーム。",
-        "personalFinance": "あらゆる所得レベルの個人のための金融リテラシー、投資戦略、実践的なマネー管理のヒントのリソース。",
-        "science": "複雑な科学的概念を一般の人々が理解しやすくするブログ。魅力的な説明と実世界の応用を提供。",
-        "photography": "様々なジャンルや場所からの驚くべき画像とともに、写真技術、機材レビューを共有する視覚的ストーリーテリングプラットフォーム。"
-      }
-    },
-    "publishing": {
-      "monetizationGoals": "収益目標",
-      "monetizationGoalsPlaceholder": "収益目標とターゲットを説明してください",
-      "goals": {
-        "zero": "¥0",
-        "weekly100": "週¥10,000",
-        "weekly1000": "週¥100,000",
-        "weekly5000": "週¥500,000"
+      "daysShort": {
+        "monday": "月",
+        "tuesday": "火",
+        "wednesday": "水",
+        "thursday": "木",
+        "friday": "金",
+        "saturday": "土",
+        "sunday": "日"
       }
     }
   }

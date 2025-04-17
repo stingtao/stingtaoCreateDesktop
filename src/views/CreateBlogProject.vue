@@ -223,9 +223,9 @@
           <div class="form-group">
             <label for="time-commitment">{{ t('newProject.time.commitment') }}</label>
             <select id="time-commitment" v-model="projectData.timeCommitment">
-              <option value="casual">{{ t('newProject.time.options.casual') }}</option>
-              <option value="partTime">{{ t('newProject.time.options.partTime') }}</option>
-              <option value="fullTime">{{ t('newProject.time.options.fullTime') }}</option>
+              <option value="casual">{{ t('common.timeCommitment.casual') }}</option>
+              <option value="partTime">{{ t('common.timeCommitment.partTime') }}</option>
+              <option value="fullTime">{{ t('common.timeCommitment.fullTime') }}</option>
             </select>
           </div>
           
@@ -251,17 +251,17 @@
           </div>
           
           <div class="form-group">
-            <label>{{ t('newProject.time.availability') }}</label>
+            <label>{{ t('common.availability.label') }}</label>
             <div class="availability-options">
-              <div 
+              <button 
                 v-for="day in weekDays" 
-                :key="day.value" 
+                :key="day.value"
                 class="day-option"
                 :class="{ selected: projectData.availability.includes(day.value) }"
                 @click="toggleAvailability(day.value)"
               >
-                {{ day.label }}
-              </div>
+                {{ t(`common.availability.daysShort.${day.value}`) }}
+              </button>
             </div>
           </div>
           

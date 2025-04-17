@@ -373,7 +373,8 @@ const {
   setSelectedTextInfo,
   clearSelectedTextInfo,
   updateContent: updateInlineContent,
-  setAddToConversationHistory
+  setAddToConversationHistory,
+  updateMousePosition: updateInlineEditorMousePosition
 } = useInlineEditor()
 
 // 加載項目列表
@@ -582,7 +583,10 @@ const goToSettings = () => {
   router.push('/settings')
 }
 
-// 處理文本選擇
+// Add mousePosition ref after other refs
+const mousePosition = ref({ x: 0, y: 0 })
+
+// Update handleTextSelection function
 const handleTextSelection = (source: 'title' | 'content', element: HTMLInputElement | HTMLTextAreaElement, lineNumbers?: HTMLElement) => {
   console.log('handleTextSelection called with source:', source)
   
@@ -610,14 +614,30 @@ const handleTextSelection = (source: 'title' | 'content', element: HTMLInputElem
       source
     })
     
-    // Use fixed positioning for floating hint
-    const contentTextarea = document.querySelector('.content-editor textarea') as HTMLElement
-    if (contentTextarea) {
-      const rect = contentTextarea.getBoundingClientRect()
-      const position = {
-        top: `${rect.top - 10}px`, // 10px above the content textarea
-        left: `${rect.left + (rect.width / 2)}px` // Center of the content textarea
-      }
+    // Calculate position relative to viewport
+    const OFFSET_X = 10 // Offset from mouse pointer
+    const OFFSET_Y = 10 // Offset from mouse pointer
+    
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth
+    const viewportHeight = window.innerHeight
+    
+    // Get floating hint dimensions (approximate if not yet rendered)
+    const HINT_WIDTH = 200 // Approximate width of floating hint
+    const HINT_HEIGHT = 80 // Approximate height of floating hint
+    
+    // Calculate position, ensuring it stays within viewport
+    let left = Math.min(mousePosition.value.x + OFFSET_X, viewportWidth - HINT_WIDTH)
+    let top = Math.min(mousePosition.value.y + OFFSET_Y, viewportHeight - HINT_HEIGHT)
+    
+    // Ensure minimum distance from viewport edges
+    left = Math.max(0, left)
+    top = Math.max(0, top)
+    
+    const position = {
+      top: `${top}px`,
+      left: `${left}px`
+    }
     
     // Update floating hint position
     if (source === 'title') {
@@ -626,7 +646,6 @@ const handleTextSelection = (source: 'title' | 'content', element: HTMLInputElem
     } else {
       contentFloatingHintPosition.value = position
       showContentFloatingHint.value = true
-      }
     }
   } else {
     console.log('No text selected, clearing selected text')
@@ -692,19 +711,47 @@ const showInlineEdit = (source: 'title' | 'content') => {
   showContentFloatingHint.value = false
   showTitleFloatingHint.value = false
   
-  // Use fixed positioning for inline editor
-  const contentTextarea = document.querySelector('.content-editor textarea') as HTMLElement
-  if (contentTextarea) {
-    const rect = contentTextarea.getBoundingClientRect()
-    const position = {
-      top: `${rect.top - 10}px`, // 10px above the content textarea
-      left: `${rect.left + (rect.width / 2)}px` // Center of the content textarea
-    }
-  showInlineEditUI(source, position)
+  // Calculate position relative to viewport
+  const OFFSET_X = 10 // Offset from mouse pointer
+  const OFFSET_Y = 10 // Offset from mouse pointer
+  
+  // Get viewport dimensions
+  const viewportWidth = window.innerWidth
+  const viewportHeight = window.innerHeight
+  
+  // Get inline editor dimensions
+  const EDITOR_WIDTH = 400 // Width from CSS
+  const EDITOR_HEIGHT = 200 // Approximate height
+  
+  // Calculate position, ensuring the editor stays within viewport
+  let left = mousePosition.value.x
+  let top = mousePosition.value.y + OFFSET_Y
+  
+  // Adjust horizontal position if it would go off screen
+  if (left + EDITOR_WIDTH + OFFSET_X > viewportWidth) {
+    // If it would go off the right edge, position it to the left of the mouse
+    left = left - EDITOR_WIDTH - OFFSET_X
   } else {
-    // Fallback to default position
-    showInlineEditUI(source, { top: '50px', left: '50%' })
+    // Otherwise, position it to the right of the mouse
+    left = left + OFFSET_X
   }
+  
+  // Adjust vertical position if it would go off screen
+  if (top + EDITOR_HEIGHT > viewportHeight) {
+    // If it would go off the bottom, position it above the mouse
+    top = mousePosition.value.y - EDITOR_HEIGHT - OFFSET_Y
+  }
+  
+  // Ensure minimum distances from viewport edges
+  left = Math.max(OFFSET_X, left)
+  top = Math.max(OFFSET_Y, top)
+  
+  const position = {
+    left: `${left}px`,
+    top: `${top}px`
+  }
+  
+  showInlineEditUI(source, position)
 }
 
 // Add hasUnsavedChanges ref
@@ -895,6 +942,9 @@ onMounted(async () => {
 
   // Scroll conversation history to bottom on mount
   scrollToBottom(); // ADDED HERE
+
+  // Add mouse move event listener
+  document.addEventListener('mousemove', updateMousePosition)
 })
 
 // 在組件卸載時移除事件監聽器
@@ -917,6 +967,9 @@ onUnmounted(() => {
   if (hasUnsavedChanges.value) {
     saveImmediately()
   }
+
+  // Remove mouse move event listener
+  document.removeEventListener('mousemove', updateMousePosition)
 })
 
 // Add project data ref
@@ -1289,6 +1342,16 @@ const handleSendMessage = async () => {
   } finally {
     isSending.value = false
   }
+}
+
+// Add mouse position tracking
+const updateMousePosition = (event: MouseEvent) => {
+  mousePosition.value = {
+    x: event.clientX,
+    y: event.clientY
+  }
+  // Also update the inline editor's mouse position
+  updateInlineEditorMousePosition(event.clientX, event.clientY)
 }
 </script> 
 

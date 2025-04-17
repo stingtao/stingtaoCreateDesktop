@@ -272,7 +272,6 @@ textarea::-webkit-scrollbar-thumb:hover {
   box-shadow: var(--shadow-lg);
   padding: 16px;
   width: 400px;
-  transform: translateX(-50%);
   transition: all 0.3s ease;
   animation: fadeIn 0.3s ease-out;
 }
@@ -280,11 +279,11 @@ textarea::-webkit-scrollbar-thumb:hover {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -719,14 +718,24 @@ textarea::-webkit-scrollbar-thumb:hover {
   position: fixed;
   z-index: 1000;
   background-color: var(--color-bg-secondary);
-  border: 2px solid #10b981; /* Bright green that works in both themes */
+  border: 2px solid #10b981;
   border-radius: 8px;
   box-shadow: var(--shadow-lg);
   padding: 16px;
   width: 400px;
-  transform: translateX(-50%);
   transition: all 0.3s ease;
-  animation: fadeIn 0.3s ease-out;
+  animation: diffFadeIn 0.3s ease-out;
+}
+
+@keyframes diffFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Add a subtle glow effect for the border in dark mode */
@@ -1512,7 +1521,6 @@ input::placeholder {
   box-shadow: var(--shadow-lg);
   padding: 16px;
   width: 400px;
-  transform: translateX(-50%);
   transition: all 0.3s ease;
   animation: fadeIn 0.3s ease-out;
 }
@@ -1520,11 +1528,11 @@ input::placeholder {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
 

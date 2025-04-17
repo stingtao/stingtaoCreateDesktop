@@ -9,6 +9,207 @@
     "settings": "設定",
     "help": "幫助"
   },
+  "projects": {
+    "title": "專案",
+    "newProject": "新增專案",
+    "actions": {
+      "edit": "編輯",
+      "delete": "刪除",
+      "addArticle": "新增文章"
+    },
+    "created": "建立時間",
+    "updated": "更新時間",
+    "startDate": "開始日期",
+    "endDate": "結束日期",
+    "goal": "目標",
+    "description": "描述",
+    "targetAudience": "目標讀者",
+    "frequency": "發布頻率",
+    "frequencies": {
+      "daily": "每日",
+      "weekly": "每週",
+      "biweekly": "雙週",
+      "monthly": "每月",
+      "quarterly": "每季",
+      "custom": "自訂"
+    },
+    "notSet": "未設定",
+    "empty": {
+      "title": "尚無專案",
+      "description": "開始您的寫作之旅，建立第一個專案",
+      "start": "建立專案"
+    },
+    "deleteModal": {
+      "title": "刪除專案",
+      "confirmation": "確定要刪除「{title}」嗎？",
+      "secondTitle": "最終確認",
+      "secondConfirmation": "警告：這將永久刪除「{title}」及其所有相關文章。此操作無法復原。您確定要繼續嗎？",
+      "cancel": "取消",
+      "confirm": "刪除"
+    },
+    "deleteError": "刪除專案時發生錯誤",
+    "setEndDate": "請輸入結束日期 (YYYY-MM-DD):",
+    "invalidDate": "無效的日期格式。請使用 YYYY-MM-DD 格式",
+    "types": {
+      "blog": "部落格",
+      "book": "書籍",
+      "course": "課程"
+    },
+    "status": {
+      "active": "進行中",
+      "completed": "已完成",
+      "archived": "已封存",
+      "draft": "草稿"
+    },
+    "card": {
+      "viewDetails": "查看詳情",
+      "lastUpdated": "最後更新",
+      "articles": "文章",
+      "noArticles": "尚無文章",
+      "dueDate": "截止日期",
+      "progress": "進度"
+    },
+    "tooltips": {
+      "edit": "編輯專案詳情",
+      "delete": "刪除此專案",
+      "addArticle": "新增文章至此專案",
+      "setEndDate": "設定專案結束日期"
+    },
+    "metrics": {
+      "totalProjects": "專案總數",
+      "activeProjects": "進行中專案",
+      "completedProjects": "已完成專案",
+      "totalArticles": "文章總數",
+      "totalWords": "總字數"
+    },
+    "editForm": {
+      "title": "編輯專案",
+      "save": "儲存變更",
+      "saving": "儲存中...",
+      "cancel": "取消",
+      "loading": "載入專案中...",
+      "retry": "重試",
+      "notFound": "找不到專案",
+      "invalidId": "無效的專案 ID",
+      "loadError": "載入專案時發生錯誤",
+      "saveError": "儲存專案時發生錯誤",
+      "requiredFields": "標示 * 的欄位為必填",
+      "basicInfo": "基本資訊",
+      "titlePlaceholder": "輸入專案標題",
+      "type": "專案類型",
+      "category": "類別",
+      "categoryPlaceholder": "輸入專案類別",
+      "description": "描述",
+      "descriptionPlaceholder": "輸入專案描述",
+      "goal": "目標",
+      "goalPlaceholder": "輸入專案目標",
+      "timeManagement": "時間管理",
+      "timeCommitment": "時間投入",
+      "publishingFrequency": "發布頻率",
+      "customFrequency": "自訂頻率",
+      "customFrequencyPlaceholder": "輸入您的自訂發布頻率",
+      "deadline": "截止日期",
+      "availability": "可用時間",
+      "reminderFrequency": "提醒頻率",
+      "publishingDetails": "發布詳情",
+      "publishingPlatform": "發布平台",
+      "wordpressUrl": "WordPress 網址",
+      "wordpressUrlPlaceholder": "輸入您的 WordPress 網站網址",
+      "substackUrl": "Substack 網址",
+      "substackUrlPlaceholder": "輸入您的 Substack 電子報網址",
+      "customPlatform": "自訂平台",
+      "customPlatformPlaceholder": "輸入您的平台名稱",
+      "monetization": "變現",
+      "monetizationStrategy": "變現策略",
+      "monetizationGoals": "變現目標",
+      "contentStrategy": "內容策略",
+      "contentStrategyPlaceholder": "描述您的內容策略",
+      "seoStrategy": "SEO 策略",
+      "seoStrategyPlaceholder": "描述您的 SEO 策略",
+      "keywords": "關鍵字",
+      "keywordsPlaceholder": "新增關鍵字並按 Enter",
+      "structure": "結構",
+      "progress": "進度",
+      "targetAudience": "目標讀者",
+      "required": "必填欄位",
+      "validation": {
+        "titleRequired": "專案標題為必填",
+        "descriptionRequired": "專案描述為必填",
+        "goalRequired": "專案目標為必填",
+        "timeCommitmentRequired": "時間投入為必填",
+        "publishingFrequencyRequired": "發布頻率為必填",
+        "customFrequencyRequired": "選擇自訂頻率時，自訂頻率為必填",
+        "deadlineRequired": "截止日期為必填",
+        "availabilityRequired": "可用時間為必填",
+        "reminderFrequencyRequired": "提醒頻率為必填",
+        "keywordsRequired": "關鍵字為必填",
+        "targetAudienceRequired": "目標讀者為必填",
+        "articleLengthRequired": "文章長度為必填"
+      },
+      "notifications": {
+        "yes": "是",
+        "no": "否"
+      },
+      "receiveNotifications": "接收通知",
+      "targetAudiencePlaceholder": "描述您的目標讀者",
+      "articleLengthLabel": "文章長度",
+      "frequency": {
+        "daily": "每日",
+        "weekly": "每週",
+        "biweekly": "雙週",
+        "monthly": "每月",
+        "quarterly": "每季",
+        "custom": "自訂"
+      }
+    },
+    "filters": {
+      "all": "所有專案",
+      "active": "進行中",
+      "completed": "已完成",
+      "archived": "已封存",
+      "type": "專案類型",
+      "status": "狀態",
+      "sortBy": "排序方式",
+      "search": "搜尋專案..."
+    },
+    "sort": {
+      "newest": "最新優先",
+      "oldest": "最舊優先",
+      "title": "標題",
+      "dueDate": "截止日期",
+      "lastUpdated": "最後更新"
+    },
+    "confirmations": {
+      "deleteTitle": "刪除專案",
+      "deleteMessage": "確定要刪除此專案嗎？此操作無法復原。",
+      "deleteSuccess": "專案已成功刪除",
+      "deleteFailed": "專案刪除失敗"
+    },
+    "platforms": {
+      "wordpress": "WordPress",
+      "substack": "Substack",
+      "custom": "自訂平台"
+    },
+    "monetization": {
+      "free": "免費內容",
+      "subscription": "訂閱制",
+      "ads": "廣告",
+      "affiliate": "聯盟行銷",
+      "products": "產品/服務",
+      "mixed": "混合策略",
+      "goals": {
+        "zero": "$0",
+        "weekly100": "$100/週",
+        "weekly1000": "$1,000/週",
+        "weekly5000": "$5,000/週"
+      }
+    },
+    "structure": {
+      "standard": "標準部落格",
+      "series": "系列文章",
+      "tutorial": "教學/指南"
+    }
+  },
   "project": {
     "new": "新增專案",
     "edit": "編輯專案",
@@ -42,10 +243,17 @@
     "latestNews": "最新消息",
     "writingProgress": "寫作進度",
     "totalProjects": "總專案數",
+    "totalBlogs": "部落格總數",
+    "totalWords": "總字數",
     "inProgress": "進行中",
     "completed": "已完成",
     "recentProjects": "最近的專案",
     "lastEdited": "最後編輯",
+    "description": "描述",
+    "targetAudience": "目標讀者",
+    "recentArticles": "最近的文章",
+    "noProjects": "尚無專案。建立您的第一個專案開始使用！",
+    "noArticles": "尚無文章",
     "community": "社群消息",
     "earlyReaders": "早期讀者計劃",
     "earlyReadersDesc": "加入我們的早期讀者計劃，獲得第一手的寫作回饋",
@@ -67,6 +275,38 @@
     "shortcutUndo": "復原上一步操作",
     "shortcutRedo": "重做上一步操作"
   },
+  "common": {
+    "timeCommitment": {
+      "casual": "休閒 (每天1小時)",
+      "partTime": "兼職 (每天3小時)",
+      "fullTime": "全職 (每天5小時)"
+    },
+    "availability": {
+      "label": "可用時間",
+      "validation": {
+        "required": "可用時間為必填",
+        "selectOne": "請至少選擇一個可用時間"
+      },
+      "days": {
+        "monday": "星期一",
+        "tuesday": "星期二",
+        "wednesday": "星期三",
+        "thursday": "星期四",
+        "friday": "星期五",
+        "saturday": "星期六",
+        "sunday": "星期日"
+      },
+      "daysShort": {
+        "monday": "一",
+        "tuesday": "二",
+        "wednesday": "三",
+        "thursday": "四",
+        "friday": "五",
+        "saturday": "六",
+        "sunday": "日"
+      }
+    }
+  },
   "newProject": {
     "title": "建立新專案",
     "popup": {
@@ -83,6 +323,12 @@
       "plan": "專案計劃",
       "goals": "目標"
     },
+    "projectType": {
+      "title": "選擇專案類型",
+      "description": "選擇您要建立的專案類型",
+      "blogDescription": "建立部落格文章、文章或短篇內容",
+      "bookDescription": "撰寫書籍、小說或長篇內容"
+    },
     "details": {
       "title": "專案詳情",
       "description": "提供關於您專案的資訊",
@@ -93,31 +339,14 @@
       "descriptionPlaceholder": "描述您的專案內容",
       "goal": "專案目標",
       "goalPlaceholder": "您希望透過這個專案達成什麼目標？",
-      "samples": {
-        "technology": "一個全面的部落格，探索科技的最新趨勢，提供深入分析和實用技巧給讀者。",
-        "travel": "一段穿越世界的個人旅程，分享經驗、推薦和旅行技巧，為冒險者提供指南。",
-        "business": "為想要創業和發展業務的企業家提供的資源中心，包含可行的建議和成功案例。",
-        "health": "專注於健康生活的部落格，提供食譜、運動計劃和健康提示，幫助讀者過上平衡的生活。",
-        "education": "一個教育平台，將複雜主題分解為易於理解的內容，適合終身學習者。",
-        "community": "一個以社群為中心的部落格，匯集創意專業人士分享想法、技巧和靈感。",
-        "learning": "記錄學習新技能的過程，提供進度更新和經驗教訓。",
-        "currentEvents": "討論當前事件及其對社會影響的平台，提供深思熟慮的分析和多元觀點。",
-        "projects": "展示創新項目和想法的部落格，包含幕後內容和開發見解。",
-        "parenting": "為在數位時代撫養孩子的父母提供的資源。",
-        "automotive": "深入探索汽車世界，涵蓋最新車型、行業趨勢和專家評測，為汽車愛好者提供資訊。",
-        "ai": "探索人工智慧及其應用，分享個人經驗和對這個快速發展領域的見解。",
-        "cooking": "記錄我的烹飪冒險、餐廳發現和食材探索的烹飪之旅，包含詳細食譜和美食攝影。",
-        "sustainability": "專注於永續生活實踐、環保產品和環境倡議的部落格，激發積極變革。",
-        "mindfulness": "專注於正念練習、冥想技巧和維持當今快節奏世界中心理健康的策略。",
-        "remoteWork": "遠程工作成功指南，分享生產力技巧、工作空間設置想法和維持工作與生活平衡的策略。",
-        "urbanExploration": "通過城市景觀的視覺和敘事之旅，發掘隱藏的寶藏、建築奇觀和城市故事。",
-        "minimalism": "關於極簡主義生活、整理策略和在消費驅動的世界中尋找滿足感的部落格。",
-        "digitalNomad": "作為數位游牧者的生活編年史，分享旅行經驗、遠程工作技巧和來自世界各地的文化見解。",
-        "creativeWriting": "為有抱負的作家提供創意寫作練習、提示和技巧的平台，幫助他們發展技能並找到自己的聲音。",
-        "personalFinance": "為各個收入水平的個人提供金融素養、投資策略和實用理財技巧的資源。",
-        "science": "使複雜科學概念易於公眾理解的部落格，提供引人入勝的解釋和實際應用。",
-        "photography": "分享攝影技巧、設備評測和來自各種流派和地點的驚人圖像的視覺敘事平台。"
-      }
+      "sampleButton": "取得範例",
+      "sampleTitle": "範例描述",
+      "sampleCancel": "取消",
+      "sampleAnother": "另一個",
+      "sampleApply": "套用",
+      "validationMessage": "請完成此部分的所有必填欄位",
+      "titleError": "專案標題為必填",
+      "descriptionError": "專案描述為必填"
     },
     "goals": {
       "title": "您的願景，您的未來",
@@ -125,9 +354,163 @@
       "mainGoal": "主要目標",
       "goalPlaceholder": "您部落格的主要目標是什麼？",
       "goalHint": "具體說明您想要達成的目標",
+      "impact": "影響目標",
+      "impactPlaceholder": "您想要產生什麼樣的影響？",
+      "impactHint": "考慮您的部落格將如何影響讀者",
+      "audienceValue": "讀者價值",
+      "audienceValuePlaceholder": "您將為讀者提供什麼價值？",
+      "audienceValueHint": "思考您將為讀者解決的問題",
+      "personalGrowth": "個人成長",
+      "personalGrowthPlaceholder": "這個部落格如何幫助您成長？",
+      "personalGrowthHint": "考慮您自己的學習和發展目標",
+      "smartGoals": "SMART 目標",
+      "smartGoalsDescription": "設定具體、可衡量、可達成、相關且有時限的目標",
+      "specific": "具體",
+      "specificPlaceholder": "您將完成什麼具體目標？",
+      "measurable": "可衡量",
+      "measurablePlaceholder": "如何衡量成功？",
+      "achievable": "可達成",
+      "achievablePlaceholder": "這個目標是否實際可行？",
+      "relevant": "相關",
+      "relevantPlaceholder": "為什麼這個目標重要？",
+      "timebound": "時限",
+      "timeboundPlaceholder": "您何時要達成這個目標？",
+      "motivation": "動機",
+      "motivationDescription": "了解您的動機和潛在障礙",
+      "motivationQuestion": "是什麼促使您開始這個部落格？",
+      "motivationPlaceholder": "描述您的動機...",
+      "obstacles": "潛在障礙",
+      "obstaclesPlaceholder": "您可能面臨哪些挑戰？",
+      "solutions": "解決方案",
+      "solutionsPlaceholder": "您將如何克服這些障礙？",
       "inspirationTitle": "需要靈感？",
       "inspirationCancel": "取消",
-      "inspirationApply": "應用到目標"
+      "inspirationApply": "套用至目標",
+      "validationMessage": "請定義您的主要目標以繼續",
+      "errorMessage": "請輸入您的主要目標"
+    },
+    "time": {
+      "title": "時間投入",
+      "description": "設定您的時間投入和可用性",
+      "commitment": "時間投入程度",
+      "deadline": "專案期限",
+      "duration": "專案期間",
+      "durations": {
+        "days30": "30天",
+        "days60": "60天",
+        "days90": "90天"
+      },
+      "availability": "可用時間",
+      "publishingFrequency": "發布頻率",
+      "frequency": {
+        "weekly": "每週",
+        "biweekly": "雙週",
+        "monthly": "每月",
+        "quarterly": "每季",
+        "custom": "自訂"
+      },
+      "customFrequency": "自訂頻率",
+      "customFrequencyPlaceholder": "描述您的發布時程",
+      "reminderFrequency": "提醒頻率",
+      "reminder": {
+        "daily": "每日",
+        "weekly": "每週",
+        "biweekly": "雙週",
+        "monthly": "每月",
+        "none": "不提醒"
+      },
+      "commitmentMessage": "您將每月投入 {hours} 小時在此專案",
+      "commitmentDetails": "每週 {daysPerWeek} 天 × 每天 {hoursPerDay} 小時 × 每月 {weeksPerMonth} 週 = 每月 {hoursPerMonth} 小時",
+      "validationMessage": "請設定您的時間投入",
+      "availabilityError": "請至少選擇一個可用時間",
+      "commitmentError": "請選擇您的時間投入程度",
+      "frequencyError": "請選擇您的發布頻率"
+    },
+    "publishing": {
+      "title": "發布平台",
+      "description": "選擇您要發布部落格的平台",
+      "platform": "平台",
+      "platforms": {
+        "wordpress": "WordPress",
+        "substack": "Substack",
+        "medium": "Medium",
+        "custom": "自訂平台"
+      },
+      "wordpressUrl": "WordPress 網址",
+      "wordpressUrlPlaceholder": "輸入您的 WordPress 網站網址",
+      "substackUrl": "Substack 網址",
+      "substackUrlPlaceholder": "輸入您的 Substack 電子報網址",
+      "customPlatform": "自訂平台",
+      "customPlatformPlaceholder": "輸入您的平台名稱",
+      "monetization": "變現",
+      "monetizationDescription": "定義您的變現策略",
+      "monetizationStrategy": "變現策略",
+      "strategies": {
+        "free": "免費內容",
+        "subscription": "訂閱制",
+        "ads": "廣告",
+        "affiliate": "聯盟行銷",
+        "products": "產品/服務",
+        "mixed": "混合策略"
+      },
+      "monetizationGoals": "變現目標",
+      "monetizationGoalsPlaceholder": "描述您的變現目標和目標值",
+      "goals": {
+        "zero": "$0",
+        "weekly100": "$100/週",
+        "weekly1000": "$1,000/週",
+        "weekly5000": "$5,000/週"
+      },
+      "validationMessage": "請完成您的發布詳情",
+      "platformError": "請選擇發布平台",
+      "urlError": {
+        "wordpress": "請輸入您的 WordPress 網址",
+        "substack": "請輸入您的 Substack 網址",
+        "custom": "請輸入您的平台名稱"
+      }
+    },
+    "resources": {
+      "title": "專案資源",
+      "description": "新增專案的資源和參考資料",
+      "keywords": "關鍵字",
+      "keywordsPlaceholder": "新增關鍵字並按 Enter",
+      "existingResources": "現有資源",
+      "uploadText": "點擊上傳檔案（PDF、DOC、PPT 等）",
+      "reference_links": "參考資料與連結",
+      "reference_linksPlaceholder": "新增網站、文章或其他資源的連結",
+      "targetAudience": "目標讀者",
+      "targetAudiencePlaceholder": "描述您的理想讀者"
+    },
+    "plan": {
+      "title": "專案計劃",
+      "description": "檢視您的專案計劃和時程",
+      "summary": "專案摘要",
+      "timeline": "時程表",
+      "start": "開始日期",
+      "startDescription": "開始您的專案",
+      "deadline": "截止日期",
+      "deadlineDescription": "完成您的專案",
+      "actionItems": "行動項目",
+      "outline": "建立大綱",
+      "outlineDescription": "為您的內容建立結構化大綱",
+      "research": "研究",
+      "researchDescription": "收集資訊和資源",
+      "draft": "撰寫草稿",
+      "draftDescription": "撰寫內容的第一版草稿",
+      "review": "審查與編輯",
+      "reviewDescription": "審查、編輯和改進您的內容",
+      "publish": "發布",
+      "publishDescription": "發布和推廣您的內容",
+      "contentStrategy": "內容策略",
+      "contentStrategyPlaceholder": "描述您的內容策略和主題",
+      "seoStrategy": "SEO 策略",
+      "seoStrategyPlaceholder": "概述您的 SEO 方法和關鍵字",
+      "notifications": "我想接收關於我的專案的通知"
+    },
+    "navigation": {
+      "prev": "上一步",
+      "next": "下一步",
+      "create": "建立專案"
     },
     "blog": {
       "category": "部落格類別",
@@ -158,61 +541,51 @@
         "veryLong": "很長",
         "extensive": "非常長"
       },
-      "words": "字"
+      "words": "字",
+      "selectCategory": "選擇部落格類別",
+      "selectLength": "選擇文章長度",
+      "categoryError": "請選擇部落格類別",
+      "lengthError": "請選擇文章長度"
     },
-    "time": {
-      "title": "時間投入",
-      "description": "設定您的時間投入和可用性",
-      "commitment": "時間投入程度",
-      "options": {
-        "casual": "休閒 (每天1小時)",
-        "partTime": "兼職 (每天3小時)",
-        "fullTime": "全職 (每天5小時)"
+    "book": {
+      "genre": "書籍類型",
+      "genres": {
+        "fiction": "小說",
+        "nonFiction": "非小說",
+        "biography": "傳記",
+        "selfHelp": "自助"
+      },
+      "structure": "書籍結構",
+      "structures": {
+        "standard": "標準書籍",
+        "series": "系列書籍",
+        "tutorial": "教學/指南",
+        "review": "評論/分析"
       }
-    }
-  },
-  "bookProject": {
-    "basicInfo": "基本資訊",
-    "title": "書名",
-    "titlePlaceholder": "請輸入您的書名",
-    "genre": "類型",
-    "genres": {
-      "fiction": "小說",
-      "nonFiction": "非小說",
-      "biography": "傳記",
-      "selfHelp": "自助"
     },
-    "targetAudience": "目標讀者",
-    "targetAudiencePlaceholder": "請描述您的目標讀者群",
-    "timeCommitment": "時間規劃",
-    "estimatedWordCount": "預計字數",
-    "deadline": "截止日期",
-    "writingSchedule": "寫作進度",
-    "schedules": {
-      "flexible": "彈性安排",
-      "daily": "每日固定",
-      "weekly": "每週固定"
+    "requiredFields": "* 必填欄位",
+    "validation": {
+      "required": "此欄位為必填",
+      "titleError": "請輸入專案標題",
+      "descriptionError": "請提供專案描述",
+      "categoryError": "請選擇類別",
+      "goalError": "請定義您的專案目標",
+      "availabilityError": "請至少選擇一個可用時間",
+      "platformError": "請選擇發布平台",
+      "urlError": "請輸入有效的網址",
+      "customPlatformError": "請輸入您的平台名稱"
     },
-    "resources": "資源",
-    "researchMaterials": "研究資料",
-    "researchMaterialsPlaceholder": "列出您需要的研究資料和參考文獻",
-    "reference_links": "參考資料",
-    "reference_linksPlaceholder": "列出您計劃參考的書籍、文章或其他資源",
-    "bookPlan": "書籍規劃",
-    "synopsis": "內容簡介",
-    "synopsisPlaceholder": "請描述您的書籍主要內容和目標",
-    "chapterOutline": "章節大綱",
-    "chapterOutlinePlaceholder": "列出主要章節和內容概要",
-    "steps": {
-      "basicInfo": "基本資訊",
-      "timeCommitment": "時間規劃",
-      "resources": "資源",
-      "bookPlan": "書籍規劃"
+    "form": {
+      "incompleteError": "請完成所有必填欄位",
+      "selectCategory": "選擇類別",
+      "selectLength": "選擇文章長度",
+      "validationMessage": "部分必填欄位需要您的注意",
+      "proceedMessage": "所有必填欄位已完成。您可以繼續。"
+    },
+    "tooltips": {
+      "title": "輸入專案的標題",
+      "description": "描述您的專案目標和內容",
+      "category": "選擇最適合您專案的類別"
     }
-  },
-  "common": {
-    "previous": "上一步",
-    "next": "下一步",
-    "create": "建立專案"
   }
 } 

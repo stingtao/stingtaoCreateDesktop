@@ -81,18 +81,8 @@ export function useInlineEditor() {
   const showInlineEdit = (source: 'title' | 'content', position: { top: string, left: string }) => {
     showInlineEditor.value = true
     
-    // Use fixed positioning relative to the content textarea
-    const contentTextarea = document.querySelector('.content-editor textarea') as HTMLElement
-    if (contentTextarea) {
-      const rect = contentTextarea.getBoundingClientRect()
-      inlineEditorPosition.value = {
-        left: `${rect.left + (rect.width / 2)}px`,
-        top: `${rect.top - 10}px` // 10px above the content textarea
-      }
-    } else {
-      // Fallback to the provided position
-      inlineEditorPosition.value = position
-    }
+    // Use the provided position directly
+    inlineEditorPosition.value = position
     
     // Set a default prompt based on the source
     if (source === 'title') {
@@ -240,31 +230,50 @@ export function useInlineEditor() {
   }
   
   const positionDiffView = (diffView: HTMLElement) => {
-    // Use fixed positioning relative to the content textarea
-    const contentTextarea = document.querySelector('.content-editor textarea') as HTMLElement
-    if (contentTextarea) {
-      const rect = contentTextarea.getBoundingClientRect()
-      // Position the diff view at the center of the textarea
-      // We're no longer using transform: translateX(-50%) in the CSS
-      // so we need to adjust the position to account for the diff view's width
-      const diffViewWidth = diffView.offsetWidth || 300 // Default to 300px if width is not available
-      diffViewPosition.value = {
-        left: `${rect.left + (rect.width / 2) - (diffViewWidth / 2)}px`,
-        top: `${rect.top - 10}px` // 10px above the content textarea
-      }
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth
+    const viewportHeight = window.innerHeight
+    
+    // Get diff view dimensions
+    const diffViewWidth = diffView.offsetWidth || 400 // Default to 400px if width is not available
+    const diffViewHeight = diffView.offsetHeight || 300 // Default to 300px if height is not available
+    
+    // Get current mouse position from the last known position
+    const mouseX = mousePosition.value?.x || viewportWidth / 2
+    const mouseY = mousePosition.value?.y || viewportHeight / 2
+    
+    const OFFSET_X = 10 // Offset from mouse pointer
+    const OFFSET_Y = 10 // Offset from mouse pointer
+    
+    // Calculate initial position
+    let left = mouseX
+    let top = mouseY + OFFSET_Y
+    
+    // Adjust horizontal position if it would go off screen
+    if (left + diffViewWidth + OFFSET_X > viewportWidth) {
+      // If it would go off the right edge, position it to the left of the mouse
+      left = left - diffViewWidth - OFFSET_X
     } else {
-      // Fallback to window center
-      const windowWidth = window.innerWidth
-      const windowHeight = window.innerHeight
-      const diffViewWidth = diffView.offsetWidth || 300 // Default to 300px if width is not available
-      const diffViewHeight = diffView.offsetHeight || 200 // Default to 200px if height is not available
-      
-      diffViewPosition.value = {
-        left: `${(windowWidth - diffViewWidth) / 2}px`,
-        top: `${(windowHeight - diffViewHeight) / 2}px`
-      }
+      // Otherwise, position it to the right of the mouse
+      left = left + OFFSET_X
     }
-  };
+    
+    // Adjust vertical position if it would go off screen
+    if (top + diffViewHeight > viewportHeight) {
+      // If it would go off the bottom, position it above the mouse
+      top = mouseY - diffViewHeight - OFFSET_Y
+    }
+    
+    // Ensure minimum distances from viewport edges
+    left = Math.max(OFFSET_X, left)
+    top = Math.max(OFFSET_Y, top)
+    
+    // Update position
+    diffViewPosition.value = {
+      left: `${left}px`,
+      top: `${top}px`
+    }
+  }
   
   const acceptImprovedText = (
     selectedTextStart: number,
@@ -288,6 +297,14 @@ export function useInlineEditor() {
     inlineEditResponse.value = null;
   };
   
+  // Add mousePosition ref
+  const mousePosition = ref<{ x: number; y: number }>({ x: 0, y: 0 })
+  
+  // Add function to update mouse position
+  const updateMousePosition = (x: number, y: number) => {
+    mousePosition.value = { x, y }
+  }
+  
   return {
     showInlineEditor,
     inlineEditorPosition,
@@ -304,6 +321,7 @@ export function useInlineEditor() {
     setSelectedTextInfo,
     clearSelectedTextInfo,
     updateContent,
-    setAddToConversationHistory
+    setAddToConversationHistory,
+    updateMousePosition
   }
 } 

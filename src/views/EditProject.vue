@@ -95,10 +95,10 @@
           <h2><i class="fas fa-clock"></i> {{ t('projects.editForm.timeManagement') }}</h2>
           <div class="form-group">
             <label for="time_commitment" class="required">{{ t('projects.editForm.timeCommitment') }}</label>
-            <select id="time_commitment" v-model="project.time_commitment" required>
-              <option value="casual">{{ t('projects.editForm.timeCommitment.casual') }}</option>
-              <option value="partTime">{{ t('projects.editForm.timeCommitment.partTime') }}</option>
-              <option value="fullTime">{{ t('projects.editForm.timeCommitment.fullTime') }}</option>
+            <select id="time_commitment" v-model="project.time_commitment">
+              <option value="casual">{{ t('common.timeCommitment.casual') }}</option>
+              <option value="partTime">{{ t('common.timeCommitment.partTime') }}</option>
+              <option value="fullTime">{{ t('common.timeCommitment.fullTime') }}</option>
             </select>
           </div>
 
@@ -143,7 +143,7 @@
           </div>
 
           <div class="form-group">
-            <label for="availability" class="required">{{ t('projects.editForm.availability') }}</label>
+            <label for="availability" class="required">{{ t('common.availability.label') }}</label>
             <div class="availability-options">
               <button 
                 v-for="day in weekDays" 
@@ -152,7 +152,7 @@
                 :class="{ selected: isDaySelected(day.value) }"
                 @click="toggleAvailability(day.value)"
               >
-                {{ day.label }}
+                {{ t(`common.availability.daysShort.${day.value}`) }}
               </button>
             </div>
           </div>

@@ -1,18 +1,21 @@
 # StingtaoCreateDesktop
 
-StingtaoCreateDesktop is an AI-powered desktop application that helps content creators write better blog articles. Built with Tauri, Vue 3, and Rust, it provides an intuitive interface with AI assistance for content creation.
+StingtaoCreateDesktop is your personal writing companion that helps streamline your content creation process. Easily plan your writing projects by defining goals, managing time commitments, and identifying target audiences. With powerful content creation tools, you'll write better quality content in less time.
+
+I developed this tool initially to enhance my own English blog writing experience, and I'm actively expanding its capabilities. As a fellow content creator, I'd love to hear your feedback and suggestions to make StingtaoCreateDesktop even better for our writing community.
+
+Feel free to open an issue or reach out with your ideas - your input will help shape the future of this tool!
+
 
 ## Key Features
 
-- 🤖 AI-powered writing assistance with multiple specialized agents
-- 📝 Three-column layout with resizable panels:
-  - Project navigation
-  - Markdown editor with live preview
-  - AI assistant panel
-- 💾 Auto-save with smart navigation protection
-- ✨ Intelligent text selection tools for targeted AI help
-- 🔄 Content history with undo/redo support
-- 🎯 Project-based content organization
+- 🤖 Streamline Your Writing Process - Transform your ideas into well-structured content with our comprehensive project planning tools. Whether you're writing a blog post, book, speech, novel, or screenplay, our platform helps you organize your thoughts and create professional-quality content.
+
+- 📝 Instant AI Writing Enhancement - Get real-time AI assistance as you write. Simply select any text and let AI refine your writing, improving clarity, tone, and impact while maintaining your unique voice. No more switching between multiple apps or waiting for feedback.
+
+- 💾 Turn Ideas into Polished Drafts - Don't let writer's block hold you back.  Draft Generator turns your rough ideas and bullet points into complete first drafts, giving you a solid foundation to build upon. Save hours of time and overcome the blank page syndrome.
+
+- 🎯 Achieve Professional Results - Whether you're a blogger, author, or content creator, our tools help you produce higher quality content more efficiently. Focus on what matters most - sharing your message with the world.
 
 ## Screenshots
 
@@ -37,15 +40,30 @@ StingtaoCreateDesktop is an AI-powered desktop application that helps content cr
 ### Write your prompt while you are thinking with your work
 ![Seamless integration](screenshots/Screenshot%202025-04-17%20at%202.33.52%E2%80%AFAM.png)
 
-## Getting Started
+## Download and Installation
 
-### Prerequisites
+### Pre-built Applications
 
-- [Node.js](https://nodejs.org/) (v16 or higher)
-- [Rust](https://www.rust-lang.org/tools/install)
-- [Google Gemini API Key](https://deepmind.google/technologies/gemini/)
+#### Windows
+Download the installer package:
+- Latest release (v0.1.0): [StingtaoCreateDesktop-0.1.0-x64.msi](src-tauri/target/release/bundle/msi/stin0.1.0_x64_en-US.msi)
+- Run the installer and follow the prompts to complete installation
 
-### Installation
+#### macOS
+Download the application bundle:
+- Latest release: Coming soon
+- Drag the .app file to your Applications folder
+
+### Building from Source
+
+If you prefer to build from source code, ensure you have the following prerequisites installed:
+
+#### System Requirements
+- [Node.js](https://nodejs.org/) v16.0.0 or higher
+- [Rust](https://www.rust-lang.org/tools/install) latest stable version
+- [Google Gemini API Key](https://deepmind.google/technologies/gemini/) for AI features
+
+#### Development Setup
 
 1. Clone the repository:
    ```bash

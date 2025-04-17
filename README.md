@@ -51,7 +51,7 @@ Download the installer package:
 
 #### macOS
 Download the application bundle:
-- Latest release (v0.1.0): [stingtaocreatedesktop.app](https://github.com/stingtao/stingtaoCreateDesktop/releases/download/v0.1/stingtaocreatedesktop.app.zip)
+- Latest release (v0.1.0): [stingtaocreatedesktop.app](https://github.com/stingtao/stingtaoCreateDesktop/releases/download/v0.1/stingtaocreatedesktop-macos-v0.1.0.zip)
 - Drag the .app file to your Applications folder
 
 ### Building from Source

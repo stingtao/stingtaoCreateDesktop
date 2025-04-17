@@ -46,12 +46,12 @@ Feel free to open an issue or reach out with your ideas - your input will help s
 
 #### Windows
 Download the installer package:
-- Latest release (v0.1.0): [StingtaoCreateDesktop-0.1.0-x64.msi](https://github.com/stingtao/stingtaoCreateDesktop/blob/main/src-tauri/target/release/bundle/msi/stingtaocreatedesktop_0.1.0_x64_en-US.msi)
+- Latest release (v0.1.0): [StingtaoCreateDesktop-0.1.0-x64.msi](https://github.com/stingtao/stingtaoCreateDesktop/releases/download/v0.1/stingtaocreatedesktop_0.1.0_x64_en-US.msi)
 - Run the installer and follow the prompts to complete installation
 
 #### macOS
 Download the application bundle:
-- Latest release: Coming soon
+- Latest release (v0.1.0): [stingtaocreatedesktop.app](https://github.com/stingtao/stingtaoCreateDesktop/releases/download/v0.1/stingtaocreatedesktop.app.zip)
 - Drag the .app file to your Applications folder
 
 ### Building from Source

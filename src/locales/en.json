@@ -65,7 +65,8 @@
       "edit": "Edit project details",
       "delete": "Delete this project",
       "addArticle": "Add new article to this project",
-      "setEndDate": "Set project end date"
+      "setEndDate": "Set project end date",
+      "description": "Keep it simple, compelling, and professional:\n• Write a clear 150-word summary\n• Start with an attention-grabbing sentence\n• Focus on main plot or central idea\n• Show your book's genre\n• Use simple, easy-to-scan language\n• Double-check for perfect grammar"
     },
     "confirmations": {
       "deleteTitle": "Delete Project",
@@ -302,11 +303,11 @@
     },
     "details": {
       "title": "Project Details",
-      "description": "Provide information about your project",
+      "description": "Description",
+      "description-long": "Fill in the essential details about your project. The more information you provide, the better we can help you structure your writing journey, set realistic milestones, and create a personalized writing plan that matches your vision.",
       "inspirationDescription": "Define your audience, research keywords, capture trends, and create content they love. Each project is a step in your journey to make a meaningful impact through your writing.",
       "projectTitle": "Project Title",
       "titlePlaceholder": "Enter a title for your project",
-      "description": "Description",
       "descriptionPlaceholder": "Describe what your project is about",
       "goal": "Project Goal",
       "goalPlaceholder": "What do you want to achieve with this project?",
@@ -469,7 +470,7 @@
       "title": "Project Resources",
       "description": "Add resources and references for your project",
       "keywords": "Keywords",
-      "keywordsPlaceholder": "Add keywords and press Enter",
+      "keywordsPlaceholder": "Add search terms readers might use to find your book (e.g., 'time travel romance', 'productivity tips', 'beginner cookbook')",
       "existingResources": "Existing Resources",
       "uploadText": "Click to upload files (PDF, DOC, PPT, etc.)",
       "reference_links": "References & Links",
@@ -545,11 +546,81 @@
     },
     "book": {
       "genre": "Book Genre",
+      "selectGenre": "Select your book genre",
+      "samples": {
+        "fiction": {
+          "fantasy": "In a world where dreams become reality, seventeen-year-old Luna discovers she can enter other people's nightmares. When a dark force begins harvesting these nightmares to terrorize the waking world, Luna must master her rare gift before the boundary between dreams and reality crumbles. But every dream she enters pulls her deeper into a conflict centuries in the making.",
+          "mystery": "Detective Sarah Chen thought she'd seen every kind of crime in her fifteen years on the force. But when identical letters appear at three crime scenes across the city, each written decades before the murders occurred, she faces a mystery that defies explanation. As the body count rises, Sarah races to decode the letters before the killer's prophecies claim their next victim.",
+          "romance": "After inheriting her grandmother's bookshop in a small coastal town, Emma Mitchell planned to sell it and return to her fast-paced city life. But when she discovers a collection of love letters hidden in old books, she finds herself drawn into a decades-old romance—and an unexpected connection with the handsome local historian helping her uncover the truth.",
+          "literary": "Set against the backdrop of a changing neighborhood in Brooklyn, this intimate portrait follows three generations of the Martinez family as they grapple with tradition, identity, and the American Dream. Through their interweaving stories, we explore the bonds that hold families together and the forces that pull them apart.",
+          "historical": "Paris, 1942. As the city falls under Nazi occupation, art curator Margot Laurent risks everything to save priceless masterpieces from falling into enemy hands. Based on true events, this story chronicles one woman's courage in the face of tyranny and her determination to preserve her nation's cultural heritage."
+        },
+        "nonfiction": {
+          "selfHelp": "Transform your relationship with time in just 30 days. Drawing from cutting-edge research in psychology and neuroscience, this practical guide offers proven strategies to overcome procrastination, increase productivity, and achieve your goals without burning out. Each chapter includes actionable exercises and real-life examples.",
+          "business": "Discover how successful startups navigate the crucial first thousand days. Through exclusive interviews with forty founders who built million-dollar companies, this book reveals the common patterns, pitfalls, and strategies that determine whether a new business thrives or fails in today's competitive marketplace.",
+          "science": "Journey from the smallest quantum particles to the vast expanses of the universe. This accessible exploration of modern physics breaks down complex concepts into engaging stories, revealing how our understanding of the cosmos has evolved and what mysteries still remain to be solved.",
+          "biography": "Before she became the first woman to summit all fourteen 8,000-meter peaks, Maria Torres was told she'd never walk again. This inspiring biography traces her journey from a devastating climbing accident to her record-breaking achievements, revealing the power of human determination and resilience."
+        },
+        "specialty": {
+          "children": "Join Max and his robot friend Bolt on their mission to save the neighborhood garden! When mysterious holes appear overnight and plants begin to disappear, these two unlikely detectives must solve the case before the annual flower show. A delightful adventure that teaches children about friendship, problem-solving, and the importance of community.",
+          "cookbook": "More than just a collection of recipes, this culinary journey explores the heart of Mediterranean cooking. Featuring 100 family recipes passed down through generations, each dish comes with a story of its origins, variations across regions, and tips for adapting traditional methods to modern kitchens.",
+          "youngAdult": "Sixteen-year-old Zara Chen never wanted to be a hero. But when she discovers she's one of the few people who can see the digital ghosts infecting her city's augmented reality network, she's forced to choose: ignore the corruption spreading through her world or risk everything to fight it.",
+          "health": "Revolutionize your approach to fitness by understanding the science of movement. This comprehensive guide combines cutting-edge research with practical exercises to help you build strength, improve mobility, and prevent injuries. Includes customizable programs for all fitness levels and lifestyle needs."
+        }
+      },
       "genres": {
-        "fiction": "Fiction",
-        "nonFiction": "Non-Fiction",
-        "biography": "Biography",
-        "selfHelp": "Self-Help"
+        "fiction": {
+          "label": "Fiction",
+          "romance": "Romance",
+          "scienceFiction": "Science Fiction",
+          "fantasy": "Fantasy",
+          "mystery": "Mystery & Thriller",
+          "horror": "Horror",
+          "historical": "Historical Fiction",
+          "literary": "Literary Fiction",
+          "contemporary": "Contemporary Fiction",
+          "action": "Action & Adventure",
+          "classics": "Classics",
+          "other": "Other Fiction"
+        },
+        "nonfiction": {
+          "label": "Nonfiction",
+          "biography": "Biography & Memoirs",
+          "business": "Business & Money",
+          "selfHelp": "Self-Help & Personal Development",
+          "history": "History",
+          "science": "Science & Mathematics",
+          "technology": "Technology & Engineering",
+          "philosophy": "Philosophy",
+          "politics": "Politics & Social Sciences",
+          "psychology": "Psychology",
+          "education": "Education & Teaching",
+          "reference": "Reference",
+          "other": "Other Nonfiction"
+        },
+        "specialty": {
+          "label": "Specialty",
+          "children": "Children's Books",
+          "youngAdult": "Teen & Young Adult",
+          "comics": "Comics & Manga",
+          "cookbooks": "Cookbooks & Food",
+          "art": "Arts & Photography",
+          "travel": "Travel",
+          "religion": "Religion & Spirituality",
+          "health": "Health & Wellness",
+          "sports": "Sports & Outdoors",
+          "crafts": "Crafts & Hobbies",
+          "parenting": "Parenting & Relationships",
+          "lgbtqia": "LGBTQIA+",
+          "other": "Other Specialty"
+        },
+        "other": "Other Genre"
+      },
+      "genreCategories": {
+        "fiction": "Fiction Books",
+        "nonfiction": "Nonfiction Books",
+        "specialty": "Specialty Books",
+        "other": "Other"
       },
       "structure": "Book Structure",
       "structures": {
@@ -557,6 +628,13 @@
         "series": "Book Series",
         "tutorial": "Tutorial/Guide",
         "review": "Review/Analysis"
+      },
+      "tooltips": {
+        "title": "Choose a clear, memorable title that reflects your book's content",
+        "goal": "Define what you want to achieve with your book",
+        "description": "Keep it simple, compelling, and professional:\n• Write a clear 150-word summary\n• Start with an attention-grabbing sentence\n• Focus on main plot or central idea\n• Show your book's genre\n• Use simple, easy-to-scan language\n• Double-check for perfect grammar",
+        "genre": "Select the category that best matches your book's content",
+        "keywords": "Think like a reader searching for your book:\n• Use specific phrases they might search for\n• Include genre-specific terms\n• Add related topics and themes\n• Consider reading level and audience\n• Include alternative terms or spellings\n• Mix broad and specific terms"
       }
     },
     "requiredFields": "* Required fields",

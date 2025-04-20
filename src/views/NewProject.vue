@@ -1,15 +1,6 @@
 <template>
   <TwoColumnLayout>
     <div class="new-project-container">
-      <!-- Add popup component -->
-      <div v-if="showPopup" class="popup-overlay" @click="closePopup">
-        <div class="popup-content" @click.stop>
-          <h3>{{ t('newProject.popup.title') }}</h3>
-          <p>{{ t('newProject.popup.message') }}</p>
-          <button class="popup-close-btn" @click="closePopup">{{ t('newProject.popup.close') }}</button>
-        </div>
-      </div>
-      
       <h1>{{ t('newProject.title') }}</h1>
       
       <!-- Progress indicator -->
@@ -292,7 +283,6 @@ import TwoColumnLayout from '../components/layouts/TwoColumnLayout.vue'
 const { t } = useI18n()
 const router = useRouter()
 const fileInput = ref<HTMLInputElement | null>(null)
-const showPopup = ref(false)
 
 // Project creation steps
 const steps = ['goals', 'details', 'time', 'publishing', 'plan']
@@ -430,17 +420,11 @@ const createProject = () => {
   }
 }
 
-// Add popup methods
-const closePopup = () => {
-  showPopup.value = false
-}
-
 // Modify the project type selection logic
 const handleProjectTypeSelect = (type: string) => {
+  projectData.value.type = type
   if (type === 'book') {
-    showPopup.value = true
-  } else {
-    projectData.value.type = type
+    router.push('/create-book-project')
   }
 }
 </script>
@@ -1398,89 +1382,6 @@ input:focus, textarea:focus, select:focus {
 
   textarea {
     min-height: 60px;
-  }
-}
-
-/* Add popup styles */
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popup-content {
-  background-color: var(--color-bg-secondary);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: var(--shadow-lg);
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-}
-
-.popup-content h3 {
-  margin-bottom: 1rem;
-  color: var(--color-text-primary);
-}
-
-.popup-content p {
-  margin-bottom: 1.5rem;
-  color: var(--color-text-secondary);
-}
-
-.popup-close-btn {
-  padding: 0.75rem 1.5rem;
-  background-color: var(--color-primary);
-  color: var(--color-text-on-primary);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.popup-close-btn:hover {
-  background-color: var(--color-primary-dark);
-}
-
-/* Dark theme styles for popup */
-:global(body.dark) .popup-content {
-  background-color: #1e1e1e;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-:global(body.dark) .popup-content h3 {
-  color: #e0e0e0;
-}
-
-:global(body.dark) .popup-content p {
-  color: #aaa;
-}
-
-/* Responsive styles for popup */
-@media (max-width: 576px) {
-  .popup-content {
-    padding: 1.5rem;
-    width: 95%;
-  }
-
-  .popup-content h3 {
-    font-size: 1.2rem;
-  }
-
-  .popup-content p {
-    font-size: 0.9rem;
-  }
-
-  .popup-close-btn {
-    padding: 0.6rem 1.25rem;
-    font-size: 0.9rem;
   }
 }
 </style> 

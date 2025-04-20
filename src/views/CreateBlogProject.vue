@@ -80,7 +80,7 @@
         <div v-if="currentStep === 1" class="step-form">
           <div class="step-form-header">
             <h2>{{ t('newProject.details.title') }}</h2>
-            <p class="step-description">{{ t('newProject.details.description') }}</p>
+            <p class="step-description">{{ t('newProject.details.description-long') }}</p>
             <div class="required-field-hint">{{ t('newProject.requiredFields') }}</div>
           </div>
           

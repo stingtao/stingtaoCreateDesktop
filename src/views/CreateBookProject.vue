@@ -11,117 +11,218 @@
           class="step" 
           :class="{ active: currentStep === index, completed: currentStep > index }"
         >
-          <div class="step-number">{{ index + 1 }}</div>
+          <div class="step-number">
+            <span v-if="currentStep > index">✓</span>
+            <span v-else>{{ index + 1 }}</span>
+          </div>
           <div class="step-label">{{ t(`newProject.steps.${step}`) }}</div>
         </div>
       </div>
       
       <!-- Step content -->
       <div class="step-content">
-        <!-- Step 1: Book Details -->
+        <!-- Step 1: Goal Setting -->
         <div v-if="currentStep === 0" class="step-form">
-          <h2>{{ t('newProject.details.title') }}</h2>
-          <p class="step-description">{{ t('newProject.details.description') }}</p>
-          
-          <div class="form-group">
-            <label for="project-title">{{ t('newProject.details.projectTitle') }}</label>
-            <input 
-              id="project-title" 
-              v-model="projectData.title" 
-              type="text" 
-              :placeholder="t('newProject.details.titlePlaceholder')"
-            />
+          <div class="step-form-header">
+            <h2>Transform Your Story into Reality</h2>
+            <p class="step-description">Every great book begins with a dream. Whether you're crafting a thrilling novel, sharing valuable knowledge, or telling your life story, this is where your author's journey begins. Let's turn your literary vision into a masterpiece that touches hearts and minds.</p>
+            <div class="required-field-hint">{{ t('newProject.requiredFields') }}</div>
           </div>
           
-          <div class="form-group">
-            <label for="project-description">{{ t('newProject.details.description') }}</label>
+          <div class="validation-status" v-if="!projectData.goal" :class="{ error: showErrors }">
+            <span class="validation-status-icon">ℹ️</span>
+            <span class="validation-message">{{ t('newProject.goals.validationMessage') }}</span>
+          </div>
+          
+          <div class="form-group required" :class="{ 'has-error': showErrors && !projectData.goal }">
+            <div class="goal-header">
+              <label for="project-goal" :title="t('newProject.tooltips.goal')">
+                {{ t('newProject.goals.mainGoal') }}
+              </label>
+              <button class="inspiration-btn" @click="openInspirationModal">
+                <span class="inspiration-icon">💡</span>
+                {{ t('newProject.goals.inspirationTitle') }}
+              </button>
+            </div>
+            <textarea 
+              id="project-goal" 
+              v-model="projectData.goal" 
+              placeholder="Share your book's purpose and vision. For example:
+• I want to write a compelling fantasy novel that transports readers to a unique world
+• I aim to create a practical guide that helps people master personal finance
+• My goal is to share my life experiences through a memoir that inspires others
+• I want to write a children's book series that sparks imagination and creativity"
+              rows="8"
+            ></textarea>
+            <div class="form-hint">{{ t('newProject.goals.goalHint') }}</div>
+            <div class="error-message" v-if="showErrors && !projectData.goal">
+              {{ t('newProject.goals.errorMessage') }}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Goal Inspiration Modal -->
+        <div v-if="showInspirationModal" class="inspiration-modal">
+          <div class="inspiration-modal-content">
+            <h3>{{ t('newProject.goals.inspirationTitle') }}</h3>
+            <p class="inspiration-prompt">{{ selectedPrompt }}</p>
+            <div class="inspiration-actions">
+              <button class="secondary-btn" @click="closeInspirationModal">
+                {{ t('newProject.goals.inspirationCancel') }}
+              </button>
+              <button class="secondary-btn" @click="getAnotherPrompt">
+                Another
+              </button>
+              <button class="primary-btn" @click="applyPromptToGoal">
+                {{ t('newProject.goals.inspirationApply') }}
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 2: Book Details -->
+        <div v-if="currentStep === 1" class="step-form">
+          <div class="step-form-header">
+            <h2>{{ t('newProject.details.title') }}</h2>
+            <p class="step-description">{{ t('newProject.details.description-long') }}</p>
+            <div class="required-field-hint">{{ t('newProject.requiredFields') }}</div>
+          </div>
+          
+          <div class="validation-status" v-if="!isStep2Valid" :class="{ error: showErrors }">
+            <span class="validation-status-icon">ℹ️</span>
+            <span class="validation-message">{{ t('newProject.details.validationMessage') }}</span>
+          </div>
+          
+          <div class="form-columns">
+            <div class="form-group required" :class="{ 'has-error': showErrors && !projectData.title }">
+              <label for="project-title" :title="t('newProject.tooltips.title')">
+                {{ t('newProject.details.projectTitle') }}
+              </label>
+              <input 
+                id="project-title" 
+                v-model="projectData.title" 
+                type="text" 
+                :placeholder="t('newProject.details.titlePlaceholder')"
+              />
+              <div class="error-message" v-if="showErrors && !projectData.title">
+                {{ t('newProject.details.titleError') }}
+              </div>
+            </div>
+            
+            <div class="form-group required" :class="{ 'has-error': showErrors && !projectData.genre }">
+              <label for="book-genre" :title="t('newProject.tooltips.genre')">
+                {{ t('newProject.book.genre') }}
+              </label>
+              <select id="book-genre" v-model="projectData.genre">
+                <option value="" disabled selected>{{ t('newProject.book.selectGenre') }}</option>
+                
+                <!-- Fiction Categories -->
+                <optgroup :label="t('newProject.book.genreCategories.fiction')">
+                  <option value="fiction.romance">{{ t('newProject.book.genres.fiction.romance') }}</option>
+                  <option value="fiction.scienceFiction">{{ t('newProject.book.genres.fiction.scienceFiction') }}</option>
+                  <option value="fiction.fantasy">{{ t('newProject.book.genres.fiction.fantasy') }}</option>
+                  <option value="fiction.mystery">{{ t('newProject.book.genres.fiction.mystery') }}</option>
+                  <option value="fiction.horror">{{ t('newProject.book.genres.fiction.horror') }}</option>
+                  <option value="fiction.historical">{{ t('newProject.book.genres.fiction.historical') }}</option>
+                  <option value="fiction.literary">{{ t('newProject.book.genres.fiction.literary') }}</option>
+                  <option value="fiction.contemporary">{{ t('newProject.book.genres.fiction.contemporary') }}</option>
+                  <option value="fiction.action">{{ t('newProject.book.genres.fiction.action') }}</option>
+                  <option value="fiction.classics">{{ t('newProject.book.genres.fiction.classics') }}</option>
+                  <option value="fiction.other">{{ t('newProject.book.genres.fiction.other') }}</option>
+                </optgroup>
+
+                <!-- Nonfiction Categories -->
+                <optgroup :label="t('newProject.book.genreCategories.nonfiction')">
+                  <option value="nonfiction.biography">{{ t('newProject.book.genres.nonfiction.biography') }}</option>
+                  <option value="nonfiction.business">{{ t('newProject.book.genres.nonfiction.business') }}</option>
+                  <option value="nonfiction.selfHelp">{{ t('newProject.book.genres.nonfiction.selfHelp') }}</option>
+                  <option value="nonfiction.history">{{ t('newProject.book.genres.nonfiction.history') }}</option>
+                  <option value="nonfiction.science">{{ t('newProject.book.genres.nonfiction.science') }}</option>
+                  <option value="nonfiction.technology">{{ t('newProject.book.genres.nonfiction.technology') }}</option>
+                  <option value="nonfiction.philosophy">{{ t('newProject.book.genres.nonfiction.philosophy') }}</option>
+                  <option value="nonfiction.politics">{{ t('newProject.book.genres.nonfiction.politics') }}</option>
+                  <option value="nonfiction.psychology">{{ t('newProject.book.genres.nonfiction.psychology') }}</option>
+                  <option value="nonfiction.education">{{ t('newProject.book.genres.nonfiction.education') }}</option>
+                  <option value="nonfiction.reference">{{ t('newProject.book.genres.nonfiction.reference') }}</option>
+                  <option value="nonfiction.other">{{ t('newProject.book.genres.nonfiction.other') }}</option>
+                </optgroup>
+
+                <!-- Specialty Categories -->
+                <optgroup :label="t('newProject.book.genreCategories.specialty')">
+                  <option value="specialty.children">{{ t('newProject.book.genres.specialty.children') }}</option>
+                  <option value="specialty.youngAdult">{{ t('newProject.book.genres.specialty.youngAdult') }}</option>
+                  <option value="specialty.comics">{{ t('newProject.book.genres.specialty.comics') }}</option>
+                  <option value="specialty.cookbooks">{{ t('newProject.book.genres.specialty.cookbooks') }}</option>
+                  <option value="specialty.art">{{ t('newProject.book.genres.specialty.art') }}</option>
+                  <option value="specialty.travel">{{ t('newProject.book.genres.specialty.travel') }}</option>
+                  <option value="specialty.religion">{{ t('newProject.book.genres.specialty.religion') }}</option>
+                  <option value="specialty.health">{{ t('newProject.book.genres.specialty.health') }}</option>
+                  <option value="specialty.sports">{{ t('newProject.book.genres.specialty.sports') }}</option>
+                  <option value="specialty.crafts">{{ t('newProject.book.genres.specialty.crafts') }}</option>
+                  <option value="specialty.parenting">{{ t('newProject.book.genres.specialty.parenting') }}</option>
+                  <option value="specialty.lgbtqia">{{ t('newProject.book.genres.specialty.lgbtqia') }}</option>
+                  <option value="specialty.other">{{ t('newProject.book.genres.specialty.other') }}</option>
+                </optgroup>
+
+                <!-- Other -->
+                <option value="other">{{ t('newProject.book.genres.other') }}</option>
+              </select>
+              <div class="error-message" v-if="showErrors && !projectData.genre">
+                {{ t('newProject.book.genreError') }}
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group required" :class="{ 'has-error': showErrors && !projectData.description }">
+            <div class="description-header">
+              <label for="project-description" :title="t('newProject.book.tooltips.description')">
+                {{ t('newProject.details.description') }}
+              </label>
+              <button class="sample-btn" @click="openSampleModal">
+                <span class="sample-icon">📋</span>
+                {{ t('newProject.details.sampleButton') }}
+              </button>
+            </div>
             <textarea 
               id="project-description" 
               v-model="projectData.description" 
               :placeholder="t('newProject.details.descriptionPlaceholder')"
               rows="4"
             ></textarea>
+            <div class="form-hint">{{ t('newProject.book.tooltips.description') }}</div>
+            <div class="error-message" v-if="showErrors && !projectData.description">
+              {{ t('newProject.details.descriptionError') }}
+            </div>
           </div>
           
           <div class="form-group">
-            <label for="project-goal">{{ t('newProject.details.goal') }}</label>
+            <label for="target-audience">{{ t('newProject.resources.targetAudience') }}</label>
             <textarea 
-              id="project-goal" 
-              v-model="projectData.goal" 
-              :placeholder="t('newProject.details.goalPlaceholder')"
+              id="target-audience" 
+              v-model="projectData.targetAudience" 
+              :placeholder="t('newProject.resources.targetAudiencePlaceholder')"
               rows="3"
             ></textarea>
           </div>
           
           <div class="form-group">
-            <label for="book-genre">{{ t('newProject.book.genre') }}</label>
-            <select id="book-genre" v-model="projectData.genre">
-              <option value="fiction">{{ t('newProject.book.genres.fiction') }}</option>
-              <option value="non-fiction">{{ t('newProject.book.genres.nonFiction') }}</option>
-              <option value="biography">{{ t('newProject.book.genres.biography') }}</option>
-              <option value="self-help">{{ t('newProject.book.genres.selfHelp') }}</option>
-            </select>
-          </div>
-        </div>
-        
-        <!-- Step 2: Time Commitment -->
-        <div v-if="currentStep === 1" class="step-form">
-          <h2>{{ t('newProject.time.title') }}</h2>
-          <p class="step-description">{{ t('newProject.time.description') }}</p>
-          
-          <div class="form-group">
-            <label for="time-commitment">{{ t('newProject.time.commitment') }}</label>
-            <select id="time-commitment" v-model="projectData.timeCommitment">
-              <option value="casual">{{ t('newProject.time.options.casual') }}</option>
-              <option value="partTime">{{ t('newProject.time.options.partTime') }}</option>
-              <option value="fullTime">{{ t('newProject.time.options.fullTime') }}</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="deadline">{{ t('newProject.time.deadline') }}</label>
-            <input 
-              id="deadline" 
-              v-model="projectData.deadline" 
-              type="date" 
-              :min="today"
-            />
-          </div>
-          
-          <div class="form-group">
-            <label>{{ t('newProject.time.availability') }}</label>
-            <div class="availability-options">
-              <div 
-                v-for="day in weekDays" 
-                :key="day.value" 
-                class="day-option"
-                :class="{ selected: projectData.availability.includes(day.value) }"
-                @click="toggleAvailability(day.value)"
-              >
-                {{ day.label }}
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Step 3: Resources -->
-        <div v-if="currentStep === 2" class="step-form">
-          <h2>{{ t('newProject.resources.title') }}</h2>
-          <p class="step-description">{{ t('newProject.resources.description') }}</p>
-          
-          <div class="form-group">
-            <label for="keywords">{{ t('newProject.resources.keywords') }}</label>
+            <label for="keywords" :title="t('newProject.book.tooltips.keywords')">
+              {{ t('newProject.resources.keywords') }}
+            </label>
             <div class="keywords-input">
               <input 
                 id="keywords" 
                 v-model="keywordInput" 
                 type="text" 
                 :placeholder="t('newProject.resources.keywordsPlaceholder')"
-                @keydown.enter="addKeyword"
+                @keydown.enter.prevent="addKeyword"
               />
-              <button class="add-keyword-btn" @click="addKeyword">+</button>
+              <button class="add-keyword-btn" @click="addKeyword">
+                <span class="btn-icon">+</span>
+              </button>
             </div>
-            <div class="keywords-list">
+            <div class="form-hint">{{ t('newProject.book.tooltips.keywords') }}</div>
+            <div class="keywords-list" v-if="projectData.keywords.length > 0">
               <div 
                 v-for="(keyword, index) in projectData.keywords" 
                 :key="index" 
@@ -132,43 +233,74 @@
               </div>
             </div>
           </div>
+        </div>
+        
+        <!-- Description Sample Modal -->
+        <div v-if="showSampleModal" class="sample-modal">
+          <div class="sample-modal-content">
+            <h3>{{ t('newProject.details.sampleTitle') }}</h3>
+            <p class="sample-prompt">{{ t(`newProject.book.samples.${selectedCategory}.${selectedSampleKey}`) }}</p>
+            <div class="sample-actions">
+              <button class="secondary-btn" @click="closeSampleModal">
+                {{ t('newProject.details.sampleCancel') }}
+              </button>
+              <button class="secondary-btn" @click="getAnotherSample">
+                {{ t('newProject.details.sampleAnother') }}
+              </button>
+              <button class="primary-btn" @click="applySampleToDescription">
+                {{ t('newProject.details.sampleApply') }}
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 3: Time Commitment -->
+        <div v-if="currentStep === 2" class="step-form">
+          <h2>{{ t('newProject.time.title') }}</h2>
+          <p class="step-description">{{ t('newProject.time.description') }}</p>
           
           <div class="form-group">
-            <label for="resources">{{ t('newProject.resources.existingResources') }}</label>
-            <div class="resources-upload">
-              <div class="upload-area" @click="triggerFileUpload">
-                <div class="upload-icon">📄</div>
-                <p>{{ t('newProject.resources.uploadText') }}</p>
-                <input 
-                  type="file" 
-                  ref="fileInput" 
-                  multiple 
-                  @change="handleFileUpload" 
-                  style="display: none"
-                />
-              </div>
-              <div class="uploaded-files" v-if="projectData.resources.length > 0">
-                <div 
-                  v-for="(resource, index) in projectData.resources" 
-                  :key="index" 
-                  class="resource-item"
-                >
-                  <span class="resource-name">{{ resource.name }}</span>
-                  <span class="resource-type">{{ resource.type }}</span>
-                  <button class="remove-resource" @click="removeResource(index)">×</button>
-                </div>
-              </div>
+            <label for="time-commitment">{{ t('newProject.time.commitment') }}</label>
+            <select id="time-commitment" v-model="projectData.timeCommitment">
+              <option value="casual">{{ t('common.timeCommitment.casual') }}</option>
+              <option value="partTime">{{ t('common.timeCommitment.partTime') }}</option>
+              <option value="fullTime">{{ t('common.timeCommitment.fullTime') }}</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="project-duration">{{ t('newProject.time.duration') }}</label>
+            <div class="duration-container">
+              <select id="project-duration" v-model="projectData.duration" @change="updateDeadline">
+                <option value="90">{{ t('newProject.time.durations.days90') }}</option>
+                <option value="180">{{ t('newProject.time.durations.days180') }}</option>
+                <option value="365">{{ t('newProject.time.durations.days365') }}</option>
+              </select>
             </div>
           </div>
           
           <div class="form-group">
-            <label for="references">{{ t('newProject.resources.references') }}</label>
-            <textarea 
-              id="references" 
-              v-model="projectData.references" 
-              :placeholder="t('newProject.resources.referencesPlaceholder')"
-              rows="3"
-            ></textarea>
+            <label>{{ t('common.availability.label') }}</label>
+            <div class="availability-options">
+              <button 
+                v-for="day in weekDays" 
+                :key="day.value"
+                class="day-option"
+                :class="{ selected: projectData.availability.includes(day.value) }"
+                @click="toggleAvailability(day.value)"
+              >
+                {{ t(`common.availability.daysShort.${day.value}`) }}
+              </button>
+            </div>
+          </div>
+          
+          <div class="time-commitment-display" v-if="projectData.availability.length > 0">
+            <div class="commitment-message">
+              {{ t('newProject.time.commitmentMessage', { hours: monthlyCommitment }) }}
+            </div>
+            <div class="deadline-display">
+              {{ t('newProject.time.deadline') }}: {{ formattedDeadline }}
+            </div>
           </div>
         </div>
         
@@ -177,14 +309,33 @@
           <h2>{{ t('newProject.plan.title') }}</h2>
           <p class="step-description">{{ t('newProject.plan.description') }}</p>
           
-          <div class="form-group">
-            <label for="book-structure">{{ t('newProject.book.structure') }}</label>
-            <select id="book-structure" v-model="projectData.structure">
-              <option value="standard">{{ t('newProject.book.structures.standard') }}</option>
-              <option value="series">{{ t('newProject.book.structures.series') }}</option>
-              <option value="tutorial">{{ t('newProject.book.structures.tutorial') }}</option>
-              <option value="review">{{ t('newProject.book.structures.review') }}</option>
-            </select>
+          <div class="project-summary">
+            <h3>{{ t('newProject.plan.summary') }}</h3>
+            <div class="summary-content">
+              <div class="summary-item">
+                <span class="summary-label">{{ t('newProject.goals.mainGoal') }}:</span>
+                <span class="summary-value">{{ projectData.goal }}</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">{{ t('newProject.details.projectTitle') }}:</span>
+                <span class="summary-value">{{ projectData.title }}</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">{{ t('newProject.details.description') }}:</span>
+                <span class="summary-value">{{ projectData.description }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="notification-option">
+            <label class="checkbox-label">
+              <input 
+                type="checkbox" 
+                v-model="projectData.receiveNotifications" 
+                checked
+              />
+              <span>{{ t('newProject.notifications.reminder') }}</span>
+            </label>
           </div>
           
           <div class="plan-preview">
@@ -239,6 +390,13 @@
                     <p>{{ t('newProject.plan.reviewDescription') }}</p>
                   </div>
                 </div>
+                <div class="action-item">
+                  <div class="action-checkbox">☐</div>
+                  <div class="action-content">
+                    <h4>{{ t('newProject.plan.publish') }}</h4>
+                    <p>{{ t('newProject.plan.publishDescription') }}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -252,6 +410,7 @@
           class="nav-btn prev-btn" 
           @click="prevStep"
         >
+          <span class="btn-icon">←</span>
           {{ t('newProject.navigation.prev') }}
         </button>
         <button 
@@ -259,15 +418,20 @@
           class="nav-btn next-btn" 
           @click="nextStep"
           :disabled="!canProceed"
+          :data-error="getStepErrorMessage"
         >
           {{ t('newProject.navigation.next') }}
+          <span class="btn-icon">→</span>
         </button>
         <button 
           v-if="currentStep === steps.length - 1" 
           class="nav-btn create-btn" 
           @click="createProject"
+          :disabled="!isFormValid"
+          :data-error="getFormErrorMessage"
         >
           {{ t('newProject.navigation.create') }}
+          <span class="btn-icon">✓</span>
         </button>
       </div>
     </div>
@@ -279,29 +443,32 @@ import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import TwoColumnLayout from '../components/layouts/TwoColumnLayout.vue'
+import { saveProject, saveProjectContent } from '../lib/project'
+import '../styles/CreateBookProject.css'
 
 const { t } = useI18n()
 const router = useRouter()
 const fileInput = ref<HTMLInputElement | null>(null)
 
 // Project creation steps
-const steps = ['details', 'time', 'resources', 'plan']
+const steps = ['goals', 'details', 'time', 'plan']
 const currentStep = ref(0)
 
 // Project data
 const projectData = ref({
   type: 'book',
+  goal: '',
   title: '',
   description: '',
-  goal: '',
-  genre: 'fiction',
+  genre: '',
   timeCommitment: 'casual',
+  duration: '90', // Default to 90 days
   deadline: '',
   availability: [] as string[],
   keywords: [] as string[],
-  resources: [] as { name: string, type: string }[],
-  references: '',
-  structure: 'standard'
+  targetAudience: '',
+  structure: 'standard',
+  receiveNotifications: true
 })
 
 // Week days for availability
@@ -315,26 +482,127 @@ const weekDays = [
   { value: 'sunday', label: 'S' }
 ]
 
-// Today's date for deadline min value
-const today = computed(() => {
-  const date = new Date()
-  return date.toISOString().split('T')[0]
-})
+// Goal inspiration data
+const goalInspirationPrompts = [
+  "I want to write a book that inspires others to pursue their dreams.",
+  "I want to share my unique life experiences through storytelling.",
+  "I want to create a comprehensive guide that helps people solve specific problems.",
+  "I want to write a novel that entertains and makes people think.",
+  "I want to document important historical events or cultural phenomena.",
+  "I want to create a book series that captures readers' imagination.",
+  "I want to share my expertise and knowledge in my field.",
+  "I want to write a memoir that connects with readers on an emotional level.",
+  "I want to create a self-help book that transforms people's lives.",
+  "I want to write a book that challenges conventional thinking."
+]
+
+// Goal inspiration methods
+const showInspirationModal = ref(false)
+const selectedPrompt = ref('')
+
+const openInspirationModal = () => {
+  showInspirationModal.value = true
+  selectedPrompt.value = goalInspirationPrompts[Math.floor(Math.random() * goalInspirationPrompts.length)]
+}
+
+const getAnotherPrompt = () => {
+  let newPrompt
+  do {
+    newPrompt = goalInspirationPrompts[Math.floor(Math.random() * goalInspirationPrompts.length)]
+  } while (newPrompt === selectedPrompt.value && goalInspirationPrompts.length > 1)
+  selectedPrompt.value = newPrompt
+}
+
+const closeInspirationModal = () => {
+  showInspirationModal.value = false
+}
+
+const applyPromptToGoal = () => {
+  if (projectData.value.goal === '') {
+    projectData.value.goal = selectedPrompt.value + '\n'
+  } else {
+    projectData.value.goal += `\n\n${selectedPrompt.value}\n\n`
+  }
+  closeInspirationModal()
+}
+
+// Description sample data
+type SampleCategory = 'fiction' | 'nonfiction' | 'specialty'
+type SampleKeys = {
+  [K in SampleCategory]: string[]
+}
+
+const descriptionSampleKeys: SampleKeys = {
+  fiction: ['fantasy', 'mystery', 'romance', 'literary', 'historical'],
+  nonfiction: ['selfHelp', 'business', 'science', 'biography'],
+  specialty: ['children', 'cookbook', 'youngAdult', 'health']
+}
+
+// Description sample methods
+const showSampleModal = ref(false)
+const selectedCategory = ref<SampleCategory>('fiction')
+const selectedSampleKey = ref('')
+
+const openSampleModal = () => {
+  showSampleModal.value = true
+  // Randomly select a category first
+  const categories = Object.keys(descriptionSampleKeys) as SampleCategory[]
+  selectedCategory.value = categories[Math.floor(Math.random() * categories.length)]
+  // Then randomly select a sample from that category
+  const samples = descriptionSampleKeys[selectedCategory.value]
+  selectedSampleKey.value = samples[Math.floor(Math.random() * samples.length)]
+}
+
+const getAnotherSample = () => {
+  let newCategory: SampleCategory
+  let newSampleKey: string
+  do {
+    const categories = Object.keys(descriptionSampleKeys) as SampleCategory[]
+    newCategory = categories[Math.floor(Math.random() * categories.length)]
+    const samples = descriptionSampleKeys[newCategory]
+    newSampleKey = samples[Math.floor(Math.random() * samples.length)]
+  } while (
+    (newCategory === selectedCategory.value && newSampleKey === selectedSampleKey.value) && 
+    Object.keys(descriptionSampleKeys).length > 1
+  )
+  selectedCategory.value = newCategory
+  selectedSampleKey.value = newSampleKey
+}
+
+const closeSampleModal = () => {
+  showSampleModal.value = false
+}
+
+const applySampleToDescription = () => {
+  projectData.value.description = t(`newProject.book.samples.${selectedCategory.value}.${selectedSampleKey.value}`)
+  closeSampleModal()
+}
 
 // Keyword input
 const keywordInput = ref('')
 
 // Check if can proceed to next step
 const canProceed = computed(() => {
-  if (currentStep.value === 0) return projectData.value.title !== '' && projectData.value.description !== ''
-  if (currentStep.value === 1) return projectData.value.deadline !== ''
+  if (currentStep.value === 0) {
+    return projectData.value.goal !== ''
+  }
+  if (currentStep.value === 1) {
+    return projectData.value.title !== '' && 
+           projectData.value.description !== '' && 
+           projectData.value.genre !== ''
+  }
+  if (currentStep.value === 2) {
+    return projectData.value.availability.length > 0
+  }
   return true
 })
 
 // Navigation methods
 const nextStep = () => {
-  if (currentStep.value < steps.length - 1) {
+  showErrors.value = true
+  if (canProceed.value) {
     currentStep.value++
+    showErrors.value = false
   }
 }
 
@@ -366,29 +634,6 @@ const toggleAvailability = (day: string) => {
   }
 }
 
-// File upload methods
-const triggerFileUpload = () => {
-  fileInput.value?.click()
-}
-
-const handleFileUpload = (event: Event) => {
-  const input = event.target as HTMLInputElement
-  if (input.files) {
-    for (let i = 0; i < input.files.length; i++) {
-      const file = input.files[i]
-      const fileType = file.name.split('.').pop()?.toLowerCase() || ''
-      projectData.value.resources.push({
-        name: file.name,
-        type: fileType
-      })
-    }
-  }
-}
-
-const removeResource = (index: number) => {
-  projectData.value.resources.splice(index, 1)
-}
-
 // Format date for display
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('en-US', { 
@@ -398,13 +643,129 @@ const formatDate = (date: Date) => {
   }).format(date)
 }
 
-// Create project
-const createProject = () => {
-  // TODO: Implement project creation logic
-  console.log('Creating book project:', projectData.value)
+// Calculate and update deadline based on duration
+const updateDeadline = () => {
+  const today = new Date()
+  const durationDays = parseInt(projectData.value.duration)
+  const deadlineDate = new Date(today)
+  deadlineDate.setDate(today.getDate() + durationDays)
+  projectData.value.deadline = deadlineDate.toISOString().split('T')[0]
+}
+
+// Formatted deadline for display
+const formattedDeadline = computed(() => {
+  if (!projectData.value.deadline) {
+    updateDeadline() // Initialize if not set
+  }
+  const date = new Date(projectData.value.deadline)
+  return formatDate(date)
+})
+
+// Initialize deadline on component mount
+onMounted(() => {
+  updateDeadline()
+})
+
+// Calculate monthly commitment based on availability and time commitment
+const monthlyCommitment = computed(() => {
+  let hoursPerDay = 1 // Default for casual
   
-  // Navigate to the project page
-  router.push('/projects')
+  if (projectData.value.timeCommitment === 'casual') {
+    hoursPerDay = 1
+  } else if (projectData.value.timeCommitment === 'partTime') {
+    hoursPerDay = 3
+  } else if (projectData.value.timeCommitment === 'fullTime') {
+    hoursPerDay = 5
+  }
+  
+  const daysPerWeek = projectData.value.availability.length
+  const weeksPerMonth = 4
+  
+  const totalHoursPerMonth = daysPerWeek * hoursPerDay * weeksPerMonth
+  
+  return Math.round(totalHoursPerMonth)
+})
+
+const showErrors = ref(false)
+
+// Validation computed properties
+const isStep2Valid = computed(() => {
+  return projectData.value.title && 
+         projectData.value.description && 
+         projectData.value.genre
+})
+
+const isFormValid = computed(() => {
+  return projectData.value.goal &&
+         projectData.value.title &&
+         projectData.value.description &&
+         projectData.value.genre &&
+         projectData.value.availability.length > 0
+})
+
+const getStepErrorMessage = computed(() => {
+  if (currentStep.value === 0 && !projectData.value.goal) {
+    return t('newProject.goals.errorMessage')
+  }
+  if (currentStep.value === 1 && !isStep2Valid.value) {
+    return t('newProject.details.validationMessage')
+  }
+  if (currentStep.value === 2 && projectData.value.availability.length === 0) {
+    return t('newProject.time.availabilityError')
+  }
+  return ''
+})
+
+const getFormErrorMessage = computed(() => {
+  if (!isFormValid.value) {
+    return t('newProject.form.incompleteError')
+  }
+  return ''
+})
+
+// Create project
+const createProject = async () => {
+  showErrors.value = true
+  if (!isFormValid.value) {
+    return
+  }
+  
+  try {
+    console.log('Starting project creation process...')
+    
+    // Prepare the project data
+    const project = {
+      title: projectData.value.title,
+      type_: projectData.value.type,
+      description: projectData.value.description,
+      genre: projectData.value.genre,
+      time_commitment: projectData.value.timeCommitment,
+      deadline: projectData.value.deadline,
+      availability: JSON.stringify(projectData.value.availability),
+      keywords: JSON.stringify(projectData.value.keywords),
+      target_audience: projectData.value.targetAudience,
+      structure: projectData.value.structure,
+      goal: projectData.value.goal,
+      receive_notifications: projectData.value.receiveNotifications
+    }
+    
+    console.log('Formatted project data for database:', project)
+    
+    // Save the project
+    const projectId = await saveProject(project)
+    console.log(`Project saved with ID: ${projectId}`)
+    
+    if (projectId !== -1) {
+      // Navigate to the project page
+      router.push('/projects')
+    } else {
+      console.error('Failed to save project: Invalid project ID returned')
+      alert('Failed to create project. Please try again.')
+    }
+  } catch (error) {
+    console.error('Error creating project:', error)
+    alert('An error occurred while creating the project. Please try again.')
+  }
 }
 </script>
 

@@ -130,13 +130,13 @@ pub struct Blog {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Chapter {
-    pub id: i64,
+    pub id: Option<i64>,
     pub project_id: i64,
     pub title: String,
     pub content: String,
     pub chapter_number: i32,
-    pub created_at: String,
-    pub updated_at: String,
+    pub created_at: Option<String>,
+    pub updated_at: Option<String>,
 }
 
 pub fn init_db() -> Result<Connection, String> {
@@ -187,6 +187,22 @@ pub fn init_db() -> Result<Connection, String> {
     ).map_err(|e| e.to_string())?;
     println!("Ensured blogs table exists.");
     
+    // Create chapters table if it doesn't exist
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS chapters (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            project_id INTEGER NOT NULL,
+            title TEXT NOT NULL,
+            content TEXT,
+            chapter_number INTEGER,
+            created_at TEXT,
+            updated_at TEXT,
+            FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+        )",
+        [],
+    ).map_err(|e| e.to_string())?;
+    println!("Ensured chapters table exists.");
+
     // Initialize AI agent tables using the connection
     // Assuming init_ai_agent_tables is defined elsewhere and takes a &Connection
     // crate::ai_agent::init_ai_agent_tables(&conn).map_err(|e| e.to_string())?; 
@@ -972,22 +988,21 @@ pub fn save_blog(blog: Blog) -> Result<i64, String> {
 #[tauri::command]
 pub fn save_chapter(chapter: Chapter) -> Result<i64, String> {
     let conn = init_db().map_err(|e| e.to_string())?;
-    
     let now = Local::now().to_rfc3339();
-    
+
     let id = conn.execute(
-        "INSERT INTO chapters (project_id, title, content, chapter_number, created_at, updated_at) 
+        "INSERT INTO chapters (project_id, title, content, chapter_number, created_at, updated_at) \
          VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
         params![
             chapter.project_id,
             chapter.title,
             chapter.content,
             chapter.chapter_number,
-            now,
-            now
+            chapter.created_at.clone().unwrap_or(now.clone()),
+            chapter.updated_at.clone().unwrap_or(now),
         ],
     ).map_err(|e| e.to_string())?;
-    
+
     Ok(conn.last_insert_rowid())
 }
 
@@ -1435,4 +1450,28 @@ pub async fn export_database_json(app_handle: AppHandle) -> Result<String, Strin
     
     // Return the full path as a string
     Ok(export_path.to_string_lossy().to_string())
+}
+
+#[tauri::command]
+pub fn get_chapter(id: i64) -> Result<Chapter, String> {
+    let conn = init_db().map_err(|e| e.to_string())?;
+    let mut stmt = conn.prepare(
+        "SELECT id, project_id, title, content, chapter_number, created_at, updated_at \
+         FROM chapters \
+         WHERE id = ?1"
+    ).map_err(|e| e.to_string())?;
+
+    let chapter = stmt.query_row([id], |row| {
+        Ok(Chapter {
+            id: row.get(0)?,
+            project_id: row.get(1)?,
+            title: row.get(2)?,
+            content: row.get(3)?,
+            chapter_number: row.get(4)?,
+            created_at: row.get(5)?,
+            updated_at: row.get(6)?,
+        })
+    }).map_err(|e| e.to_string())?;
+
+    Ok(chapter)
 } 

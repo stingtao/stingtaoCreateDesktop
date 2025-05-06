@@ -111,6 +111,7 @@ fn main() {
             db::delete_project,
             db::get_blogs_by_project,
             db::get_chapters_by_project,
+            db::get_chapter,
             db::save_blog,
             db::save_chapter,
             db::update_blog,

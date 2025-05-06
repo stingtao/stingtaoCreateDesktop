@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import TwoColumnLayout from '../components/layouts/TwoColumnLayout.vue'
 import { useRouter } from 'vue-router'
 import { getAllProjects, type ProjectSummary } from '../lib/project'
-import { getBlogsByProject, type BlogArticle } from '../lib/content'
+import { getBlogsByProject, getChaptersByProject, type BlogArticle, type Chapter } from '../lib/content'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -15,7 +15,7 @@ const totalBlogs = ref(0)
 const totalWords = ref(0)
 
 const newsItems = ref([
-  '🎉 stingtaoCreate 0.1.0 Released - Your AI-Powered Writing Companion',
+  '🎉 stingtaoCreate 0.2.0 Released - Your AI-Powered Writing Companion',
   '📝 Start Your Writing Journey: Create a Project and Define Clear Writing Goals',
   '✨ Pro Tip: Select Any Text, Click Edit, and Let AI Enhance Your Writing Inline',
   '💡 Need Inspiration? Try Draft Generator to Create Articles Tailored to Your Expertise',
@@ -58,35 +58,48 @@ const loadProjectsAndBlogs = async () => {
   try {
     // 獲取所有專案
     const projects = await getAllProjects()
-    
     // 更新專案總數
     totalProjects.value = projects.length
-    
-    // 獲取最近的專案（最多3個）
-    const recentProjectsData = projects.slice(0, 3)
-    
-    // 為每個專案獲取最近的部落格文章
-    const projectsWithBlogs = await Promise.all(
-      recentProjectsData.map(async (project) => {
-        // 獲取該專案的所有部落格文章
+    // 先歸零
+    totalBlogs.value = 0
+    totalWords.value = 0
+    // 統計所有專案內容數量
+    await Promise.all(projects.map(async (project) => {
+      if (project.type_ === 'blog') {
         const blogs = await getBlogsByProject(project.id || 0)
-        
-        // 更新部落格總數
         totalBlogs.value += blogs.length
-        
-        // 計算總字數（簡單估算：每個字符算一個字）
         blogs.forEach(blog => {
           totalWords.value += blog.content.length
         })
-        
-        // 獲取最近的兩篇文章
-        const recentArticles = blogs.slice(0, 2).map(blog => ({
-          id: blog.id,
-          title: blog.title,
-          date: new Date(blog.created_at || new Date())
-        }))
-        
-        // 返回格式化後的專案數據
+      } else if (project.type_ === 'book') {
+        const chapters = await getChaptersByProject(project.id || 0)
+        totalBlogs.value += chapters.length
+        chapters.forEach(chapter => {
+          totalWords.value += chapter.content.length
+        })
+      }
+    }))
+    // 獲取最近的專案（最多3個）
+    const recentProjectsData = projects.slice(0, 3)
+    // recentProjects 只影響首頁顯示
+    const projectsWithBlogs = await Promise.all(
+      recentProjectsData.map(async (project) => {
+        let recentArticles: RecentArticle[] = []
+        if (project.type_ === 'blog') {
+          const blogs = await getBlogsByProject(project.id || 0)
+          recentArticles = blogs.slice(0, 2).map(blog => ({
+            id: blog.id,
+            title: blog.title,
+            date: new Date(blog.created_at || new Date())
+          }))
+        } else if (project.type_ === 'book') {
+          const chapters = await getChaptersByProject(project.id || 0)
+          recentArticles = chapters.slice(0, 2).map(chapter => ({
+            id: chapter.id,
+            title: chapter.title,
+            date: new Date(chapter.created_at || new Date())
+          }))
+        }
         return {
           id: project.id || 0,
           title: project.title || '',
@@ -99,7 +112,6 @@ const loadProjectsAndBlogs = async () => {
         } as RecentProject
       })
     )
-    
     // 更新最近的專案數據
     recentProjects.value = projectsWithBlogs
   } catch (error) {
@@ -133,6 +145,12 @@ const openArticle = (projectId: number, articleId: number) => {
 // 導航到專案列表頁面
 const navigateToProjects = () => {
   router.push('/projects')
+}
+
+// 新增 truncateText 方法
+const truncateText = (text: string, maxLength: number) => {
+  if (!text) return ''
+  return text.length <= maxLength ? text : text.slice(0, maxLength) + '...'
 }
 </script>
 
@@ -189,7 +207,7 @@ const navigateToProjects = () => {
           </div>
         </div>
         <div v-else class="project-list">
-          <div v-for="project in recentProjects" :key="project.id" class="project-card">
+          <div v-for="project in recentProjects" :key="project.id" class="project-card" :class="project.type === 'blog' ? 'blog-bg' : project.type === 'book' ? 'book-bg' : ''">
             <div class="project-header" @click="openProject(project.id)">
               <h4 class="project-title">{{ project.title }}</h4>
               <div class="project-meta">
@@ -202,7 +220,7 @@ const navigateToProjects = () => {
               <div class="project-description">
                 <div class="description-item">
                   <span class="description-label">{{ t('home.description') }}:</span>
-                  <span class="description-text">{{ project.description }}</span>
+                  <span class="description-text">{{ truncateText(project.description, 100) }}</span>
                 </div>
                 <div class="description-item">
                   <span class="description-label">{{ t('home.targetAudience') }}:</span>
@@ -825,5 +843,14 @@ const navigateToProjects = () => {
     font-size: 1.1rem;
     margin-bottom: 0.75rem;
   }
+}
+
+/* Blog/Book 專案不同背景色 */
+.project-card.blog-bg {
+  background-color: #f3f7fa;
+}
+
+.project-card.book-bg {
+  background-color: #f9f6f2;
 }
 </style> 

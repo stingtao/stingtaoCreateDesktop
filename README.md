@@ -93,9 +93,9 @@ npm run tauri build
 ### 1. First Launch
 - Launch the application
 - Go to Settings and enter your Gemini API key
-- Create your first blog project
+- Create your first blog / book project
 
-### 2. Creating a Blog Project
+### 2. Creating a Blog / Book Project
 - Click "New Project" in Home
 - Fill in project details:
   - Project name
@@ -105,9 +105,10 @@ npm run tauri build
   - Keywords
   ...
 
-### 3. Writing Articles
+### 3. Writing Articles (for Blog projects) / Chapters (for Book project)
 - Select your project in the sidebar
-- Click + to create "New Article"
+- Click + to create "New Article" for blog project
+- Click + to create "Chapters draft" for book project
 
 - Access AI features by:
   - Selecting text and using the floating toolbar

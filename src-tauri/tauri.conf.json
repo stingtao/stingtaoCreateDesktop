@@ -32,6 +32,16 @@
     ],
     "security": {
       "csp": null
+    },
+    "allowlist": {
+      "dialog": {
+        "all": true,
+        "open": true,
+        "save": true,
+        "message": true,
+        "ask": true,
+        "confirm": true
+      }
     }
   }
 }

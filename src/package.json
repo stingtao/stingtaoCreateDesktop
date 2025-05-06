@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "lint": "eslint --ext .js,.ts,.vue src",
+    "lint:fix": "eslint --fix --ext .js,.ts,.vue src",
+    "format": "prettier --write \"src/**/*.{js,ts,vue,css,scss,md}\"",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.26.0",
+    "eslint-plugin-vue": "^10.1.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3"
+  },
+  "dependencies": {
+    "pinia": "^3.0.2"
+  }
+}

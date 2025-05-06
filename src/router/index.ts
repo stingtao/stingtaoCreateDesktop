@@ -8,6 +8,9 @@ import CreateBlogProject from '../views/CreateBlogProject.vue'
 import Projects from '../views/Projects.vue'
 import EditProject from '../views/EditProject.vue'
 import NewBlogArticle from '../components/blog-article/NewBlogArticle.vue'
+import BookChapterDraft from '../views/BookChapterDraft.vue'
+import ReviewChapters from '../views/ReviewChapters.vue'
+import EditChapter from '../views/EditChapter.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -75,6 +78,21 @@ const router = createRouter({
       props: (route) => ({
         key: `${route.params.project_id}-${route.params.blog_id}`
       })
+    },
+    {
+      path: '/new-chapter',
+      name: 'new-chapter',
+      component: BookChapterDraft
+    },
+    {
+      path: '/review-chapters',
+      name: 'review-chapters',
+      component: ReviewChapters
+    },
+    {
+      path: '/projects/:project_id/chapters/:chapter_id',
+      name: 'edit-chapter',
+      component: EditChapter
     }
   ]
 })

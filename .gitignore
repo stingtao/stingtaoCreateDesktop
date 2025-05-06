@@ -7,18 +7,42 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# Rust/Tauri
+src-tauri/target/
+src-tauri/.cargo/
+src-tauri/bundle/
+
+# Tauri generated
+src-tauri/gen/
+
+# Mac
+.DS_Store
+
+# Editor/IDE
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Docs/Coverage
+docs/
+coverage/
+
+# Build archives
+*.zip
+
+# 其他 node_modules
+src/node_modules/
+
+# 其他
+.DS_Store

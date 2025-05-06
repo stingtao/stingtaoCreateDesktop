@@ -15,7 +15,7 @@
           v-for="project in projects" 
           :key="project.id" 
           class="project-card"
-          :class="{ 'deleting': project.id === deletingProjectId }"
+          :class="[project.type_ === 'blog' ? 'blog-bg' : project.type_ === 'book' ? 'book-bg' : '', { 'deleting': project.id === deletingProjectId }]"
         >
           <div class="project-header">
             <h3>{{ project.title }}</h3>
@@ -31,7 +31,7 @@
             </div>
             <div class="info-section">
               <h4>{{ t('projects.description') }}</h4>
-              <p>{{ truncateText(project.description || '', 50) }}</p>
+              <p>{{ truncateText(project.description || '', 100) }}</p>
             </div>
             <div class="info-section">
               <h4>{{ t('projects.frequency') }}</h4>
@@ -240,11 +240,9 @@ const getProjectTypeLabel = (type: string) => {
   }
 }
 
-const truncateText = (text: string, wordCount: number) => {
-  if (!text) return t('projects.notSet');
-  const words = text.split(' ');
-  if (words.length <= wordCount) return text;
-  return words.slice(0, wordCount).join(' ') + '...';
+const truncateText = (text: string, maxLength: number) => {
+  if (!text) return ''
+  return text.length <= maxLength ? text : text.slice(0, maxLength) + '...'
 }
 
 // Set end date
@@ -280,4 +278,11 @@ onMounted(() => {
 
 <style scoped>
 /* All styles moved to src/styles/Projects.css */
+/* Blog/Book 專案不同背景色 */
+.project-card.blog-bg {
+  background-color: #f3f7fa;
+}
+.project-card.book-bg {
+  background-color: #f9f6f2;
+}
 </style> 

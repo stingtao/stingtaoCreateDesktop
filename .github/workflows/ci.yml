@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  check-cursor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Node.js for check-milestone.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Check milestone.md 結構與文件同步
+        run: node .cursor/scripts/check-milestone.js
+
+      # 前端 TypeScript 檢查與測試
+      - name: Install frontend dependencies
+        run: cd src && npm install
+
+      - name: TypeScript type check
+        run: cd src && npx tsc --noEmit
+
+      - name: Lint frontend
+        run: cd src && npm run lint || true
+
+      - name: Run frontend tests
+        run: cd src && npm test || true
+
+      # Rust 後端檢查與測試
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Run Rust tests
+        run: cd src-tauri && cargo test
+
+      - name: Rust format check
+        run: cd src-tauri && cargo fmt -- --check
+
+      - name: Rust clippy (靜態分析)
+        run: cd src-tauri && cargo clippy -- -D warnings
+
+      # 可選：自動產生文件/同步
+      # - name: Generate docs
+      #   run: npm run docs
+
+      # 可選：Tauri build
+      # - name: Build Tauri app
+      #   run: cd src-tauri && cargo tauri build 

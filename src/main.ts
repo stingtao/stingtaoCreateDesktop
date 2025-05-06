@@ -5,6 +5,7 @@ import router from "./router";
 import { invoke } from '@tauri-apps/api/tauri';
 import { initDatabase } from './lib/sqlite';
 import './assets/theme.css';
+import { createPinia } from 'pinia';
 
 const initApp = async () => {
   try {
@@ -19,6 +20,7 @@ const initApp = async () => {
     const app = createApp(App);
     app.use(i18n);
     app.use(router);
+    app.use(createPinia());
     app.mount("#app");
   } catch (error) {
     console.error('Failed to initialize app:', error);

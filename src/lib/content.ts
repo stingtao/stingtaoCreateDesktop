@@ -163,4 +163,15 @@ export async function getBlogArticle(id: number): Promise<BlogArticle | null> {
     console.error('Failed to get blog article:', error)
     return null
   }
+}
+
+// Get a single chapter by ID
+export async function getChapter(id: number): Promise<Chapter | null> {
+  try {
+    // This assumes a backend command 'get_chapter' exists
+    return await invoke<Chapter>('get_chapter', { id })
+  } catch (error) {
+    console.error('Failed to get chapter:', error)
+    return null
+  }
 } 

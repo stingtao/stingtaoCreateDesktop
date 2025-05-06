@@ -11,7 +11,7 @@
           </div>
           <div class="app-info" v-if="!isSidebarCollapsed">
             <div class="app-name">stingtaoCreate</div>
-            <div class="app-version">v0.1</div>
+            <div class="app-version">v0.2</div>
           </div>
         </div>
         <button class="collapse-btn" @click="toggleSidebar" :title="isSidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'">

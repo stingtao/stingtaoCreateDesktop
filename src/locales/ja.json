@@ -181,6 +181,7 @@
     "writingProgress": "執筆の進捗",
     "totalProjects": "プロジェクト総数",
     "totalBlogs": "ブログ総数",
+    "totalWorks": "総作品数",
     "totalWords": "総単語数",
     "inProgress": "進行中",
     "completed": "完了",
@@ -242,6 +243,27 @@
         "saturday": "土",
         "sunday": "日"
       }
-    }
+    },
+    "accept": "受け入れ",
+    "cancel": "キャンセル"
+  },
+  "chapter": {
+    "auto_generate_title": "章ドラフトの自動生成",
+    "book_title": "書名",
+    "chapter_count": "章数",
+    "extra_info": "補足・要望",
+    "generate_draft": "ドラフト生成",
+    "generating_ai": "AI生成中...",
+    "generate_failed": "AIによる章生成失敗：",
+    "chapter_title": "章タイトル",
+    "chapter_content": "章内容",
+    "accepted": "章を受け入れました",
+    "save_failed": "保存失敗：",
+    "deleted": "章を削除しました",
+    "delete_failed": "削除失敗：",
+    "all_accepted": "すべての章を受け入れました",
+    "review_draft": "章ドラフトのレビュー",
+    "accept_all": "すべて受け入れ",
+    "all_processed": "すべての章が処理されました！"
   }
 } 

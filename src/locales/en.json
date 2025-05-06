@@ -248,7 +248,7 @@
     "writingProgress": "Writing Progress",
     "totalProjects": "Total Projects",
     "totalBlogs": "Total Blogs",
-    "totalWords": "Total Words",
+    "totalWorks": "Total Works",
     "inProgress": "In Progress",
     "completed": "Completed",
     "recentProjects": "Recent Projects",
@@ -687,6 +687,27 @@
         "saturday": "S",
         "sunday": "S"
       }
-    }
+    },
+    "accept": "Accept",
+    "cancel": "Cancel"
+  },
+  "chapter": {
+    "auto_generate_title": "Auto-generate Chapter Drafts",
+    "book_title": "Book Title",
+    "chapter_count": "Chapter Count",
+    "extra_info": "Extra Info / Expectations",
+    "generate_draft": "Generate Draft",
+    "generating_ai": "Generating with AI...",
+    "generate_failed": "Failed to generate chapters: ",
+    "chapter_title": "Chapter Title",
+    "chapter_content": "Chapter Content",
+    "accepted": "Chapter accepted",
+    "save_failed": "Save failed: ",
+    "deleted": "Chapter deleted",
+    "delete_failed": "Delete failed: ",
+    "all_accepted": "All chapters accepted",
+    "review_draft": "Review Chapter Drafts",
+    "accept_all": "Accept All",
+    "all_processed": "All chapters processed!"
   }
 } 

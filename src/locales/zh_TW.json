@@ -244,7 +244,7 @@
     "writingProgress": "寫作進度",
     "totalProjects": "總專案數",
     "totalBlogs": "部落格總數",
-    "totalWords": "總字數",
+    "totalWorks": "總作品數",
     "inProgress": "進行中",
     "completed": "已完成",
     "recentProjects": "最近的專案",
@@ -305,7 +305,9 @@
         "saturday": "六",
         "sunday": "日"
       }
-    }
+    },
+    "accept": "接受",
+    "cancel": "取消"
   },
   "newProject": {
     "title": "建立新專案",
@@ -587,5 +589,24 @@
       "description": "描述您的專案目標和內容",
       "category": "選擇最適合您專案的類別"
     }
+  },
+  "chapter": {
+    "auto_generate_title": "自動產生章節草稿",
+    "book_title": "書名",
+    "chapter_count": "章節數",
+    "extra_info": "其他補充 / 期待內容",
+    "generate_draft": "產生草稿",
+    "generating_ai": "AI 產生中...",
+    "generate_failed": "AI 產生章節失敗：",
+    "chapter_title": "章節標題",
+    "chapter_content": "章節內容",
+    "accepted": "已接受章節",
+    "save_failed": "儲存失敗：",
+    "deleted": "已刪除章節",
+    "delete_failed": "刪除失敗：",
+    "all_accepted": "全部章節已接受",
+    "review_draft": "審查章節草稿",
+    "accept_all": "全部接受",
+    "all_processed": "所有章節已處理完畢！"
   }
 } 

@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+- 本專案所有規範、設計、進度文件皆集中於 .cursor/ 目錄，開發時必須參考。

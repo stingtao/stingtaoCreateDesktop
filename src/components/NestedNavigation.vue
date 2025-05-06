@@ -1,16 +1,20 @@
 <template>
-  <div class="nested-nav">
+  <div class="nested-nav" ref="navListRef">
     <ul class="nav-list">
       <!-- Blog Projects Section -->
       <li class="section-header" v-if="hasBlogProjects">
         <span class="section-title">Blog Projects</span>
+        <span class="toggle-section-icon" @click="toggleAllBlogProjects">
+          <span v-if="isBlogSectionCollapsed">▶</span>
+          <span v-else>▼</span>
+        </span>
       </li>
-      <li v-for="project in blogProjects" :key="project.id" class="nav-item">
-        <div class="nav-item-header">
+      <li v-for="project in blogProjects" :key="project.id" class="nav-item" v-show="!isBlogSectionCollapsed" :class="{ 'active-project': isProjectActive(project) }">
+        <div class="nav-item-header" :class="{ 'active-project': isProjectActive(project) }">
           <div class="nav-item-left" @click="toggleProject(project.id!)">
             <span class="nav-item-icon" :class="getProjectTypeIcon(project.type_)"></span>
             <span class="nav-item-title" :title="project.title">{{ truncateText(project.title, 20) }}</span>
-            <span class="nav-item-arrow" :class="{ 'expanded': expandedProjects.includes(project.id!) }">▶</span>
+            <span class="nav-item-arrow" :class="{ 'expanded': expandedProjects.includes(project.id!) && !isBlogSectionCollapsed }">▶</span>
           </div>
           <router-link 
             :to="`/new-blog-article?project_id=${project.id}&project_name=${encodeURIComponent(project.title)}`" 
@@ -23,7 +27,7 @@
         </div>
         
         <ul v-if="expandedProjects.includes(project.id!)" class="nav-sub-list">
-          <li v-for="blog in getBlogsByProject(project.id!)" :key="blog.id" class="nav-sub-item">
+          <li v-for="blog in getBlogsByProject(project.id!)" :key="blog.id" class="nav-sub-item" :class="{ active: currentBlogId === blog.id }">
             <router-link 
               :to="`/new-blog-article?project_id=${project.id}&blog_id=${blog.id}&project_name=${encodeURIComponent(project.title)}`" 
               class="nav-sub-link"
@@ -39,13 +43,17 @@
       <!-- Book Projects Section -->
       <li class="section-header" v-if="hasBookProjects">
         <span class="section-title">Book Projects</span>
+        <span class="toggle-section-icon" @click="toggleAllBookProjects">
+          <span v-if="isBookSectionCollapsed">▶</span>
+          <span v-else>▼</span>
+        </span>
       </li>
-      <li v-for="project in bookProjects" :key="project.id" class="nav-item">
-        <div class="nav-item-header">
+      <li v-for="project in bookProjects" :key="project.id" class="nav-item" v-show="!isBookSectionCollapsed" :class="{ 'active-project': isProjectActive(project) }">
+        <div class="nav-item-header" :class="{ 'active-project': isProjectActive(project) }">
           <div class="nav-item-left" @click="toggleProject(project.id!)">
             <span class="nav-item-icon" :class="getProjectTypeIcon(project.type_)"></span>
             <span class="nav-item-title" :title="project.title">{{ truncateText(project.title, 20) }}</span>
-            <span class="nav-item-arrow" :class="{ 'expanded': expandedProjects.includes(project.id!) }">▶</span>
+            <span class="nav-item-arrow" :class="{ 'expanded': expandedProjects.includes(project.id!) && !isBookSectionCollapsed }">▶</span>
           </div>
           <router-link 
             :to="`/new-chapter?project_id=${project.id}&project_name=${encodeURIComponent(project.title)}`" 
@@ -58,9 +66,9 @@
         </div>
         
         <ul v-if="expandedProjects.includes(project.id!)" class="nav-sub-list">
-          <li v-for="chapter in getChaptersByProject(project.id!)" :key="chapter.id" class="nav-sub-item">
+          <li v-for="chapter in getChaptersByProject(project.id!)" :key="chapter.id" class="nav-sub-item" :class="{ active: currentChapterId === chapter.id }">
             <router-link 
-              :to="`/new-chapter?project_id=${project.id}&chapter_id=${chapter.id}&project_name=${encodeURIComponent(project.title)}`" 
+              :to="`/projects/${project.id}/chapters/${chapter.id}`" 
               class="nav-sub-link"
               @click.native="handleChapterClick(project.id!, chapter.id)"
             >
@@ -75,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch, nextTick } from 'vue'
 import { getAllProjects, type ProjectSummary } from '../lib/project'
 import { 
   getBlogsByProject as fetchBlogsByProject, 
@@ -83,11 +91,16 @@ import {
   type Blog, 
   type Chapter 
 } from '../lib/content'
+import { useRoute } from 'vue-router'
 
 const projects = ref<ProjectSummary[]>([])
 const expandedProjects = ref<number[]>([])
 const blogsByProject = ref<Record<number, Blog[]>>({})
 const chaptersByProject = ref<Record<number, Chapter[]>>({})
+const isBlogSectionCollapsed = ref(false)
+const isBookSectionCollapsed = ref(false)
+const navListRef = ref<HTMLElement | null>(null)
+const route = useRoute()
 
 // 從 localStorage 加載展開狀態
 const loadExpandedState = () => {
@@ -186,62 +199,137 @@ const getChaptersByProject = (projectId: number) => {
   return chaptersByProject.value[projectId] || []
 }
 
-// 處理博客點擊
+// Blog 點擊
 const handleBlogClick = (projectId: number, blogId: number) => {
   console.log(`Navigating to blog ${blogId} in project ${projectId}`)
-  
-  // 確保項目已展開
+  // 僅確保該 project 展開，不自動收合其他 project
   if (!expandedProjects.value.includes(projectId)) {
     expandedProjects.value.push(projectId)
     saveExpandedState()
   }
+  // 不再自動收合其他項目
+}
 
-  // 清除其他項目的展開狀態
-  expandedProjects.value = expandedProjects.value.filter(id => id === projectId)
+// 新建 Blog 點擊
+const handleNewBlogClick = (projectId: number) => {
+  console.log(`Creating new blog in project ${projectId}`)
+  if (!expandedProjects.value.includes(projectId)) {
+    expandedProjects.value.push(projectId)
+    saveExpandedState()
+  }
+}
+
+// Chapter 點擊
+const handleChapterClick = (projectId: number, chapterId: number) => {
+  console.log(`Navigating to chapter ${chapterId} in project ${projectId}`)
+  // 僅確保該 project 展開，不自動收合其他 project
+  if (!expandedProjects.value.includes(projectId)) {
+    expandedProjects.value.push(projectId)
+    saveExpandedState()
+  }
+}
+
+// 新建 Chapter 點擊
+const handleNewChapterClick = (projectId: number) => {
+  console.log(`Creating new chapter in project ${projectId}`)
+  if (!expandedProjects.value.includes(projectId)) {
+    expandedProjects.value.push(projectId)
+    saveExpandedState()
+  }
+}
+
+const toggleAllBlogProjects = () => {
+  isBlogSectionCollapsed.value = !isBlogSectionCollapsed.value
+  if (isBlogSectionCollapsed.value) {
+    // 收合：移除所有 blog project id
+    expandedProjects.value = expandedProjects.value.filter(id => {
+      const p = projects.value.find(p => p.id === id)
+      return p && p.type_ !== 'blog'
+    })
+  } else {
+    // 展開：不自動展開任何 project
+    // expandedProjects.value 不變
+  }
   saveExpandedState()
 }
 
-// 處理新建博客點擊
-const handleNewBlogClick = (projectId: number) => {
-  console.log(`Creating new blog in project ${projectId}`)
-  
-  // 確保項目已展開
-  if (!expandedProjects.value.includes(projectId)) {
-    expandedProjects.value.push(projectId)
-    saveExpandedState()
+const toggleAllBookProjects = () => {
+  isBookSectionCollapsed.value = !isBookSectionCollapsed.value
+  if (isBookSectionCollapsed.value) {
+    // 收合：移除所有 book project id
+    expandedProjects.value = expandedProjects.value.filter(id => {
+      const p = projects.value.find(p => p.id === id)
+      return p && p.type_ !== 'book'
+    })
+  } else {
+    // 展開：不自動展開任何 project
+    // expandedProjects.value 不變
+  }
+  saveExpandedState()
+}
+
+// 取得目前選中的 blogId/chapterId
+const currentBlogId = computed(() => {
+  const blogId = route.query.blog_id
+  return blogId ? Number(blogId) : null
+})
+const currentChapterId = computed(() => {
+  const match = route.path.match(/\/chapters\/(\d+)/)
+  return match ? Number(match[1]) : null
+})
+
+// 自動捲動到高亮項目，最多重試 10 次
+async function scrollToActiveNavItem(retry = 0) {
+  await nextTick()
+  const activeEl = navListRef.value?.querySelector('.nav-sub-item.active') as HTMLElement
+  console.log('[scrollToActiveNavItem]', { retry, activeEl, navListRef: !!navListRef.value })
+  if (activeEl && navListRef.value) {
+    const navRect = navListRef.value.getBoundingClientRect()
+    const elRect = activeEl.getBoundingClientRect()
+    if (elRect.top < navRect.top || elRect.bottom > navRect.bottom) {
+      console.log('[scrollToActiveNavItem] scrollIntoView', { elRect, navRect })
+      activeEl.scrollIntoView({ block: 'center', behavior: 'auto' })
+    } else {
+      console.log('[scrollToActiveNavItem] already in view')
+    }
+  } else if (retry < 10) {
+    setTimeout(() => scrollToActiveNavItem(retry + 1), 50)
+  } else {
+    console.log('[scrollToActiveNavItem] activeEl not found after max retries')
   }
 }
 
-// 處理章節點擊
-const handleChapterClick = (projectId: number, chapterId: number) => {
-  console.log(`Navigating to chapter ${chapterId} in project ${projectId}`)
-  
-  // 確保項目已展開
-  if (!expandedProjects.value.includes(projectId)) {
-    expandedProjects.value.push(projectId)
-    saveExpandedState()
-  }
-}
+// 監聽 route 變化、expandedProjects 變化都觸發 scroll
+watch(
+  () => route.fullPath,
+  () => scrollToActiveNavItem(),
+  { immediate: true }
+)
+watch(expandedProjects, () => scrollToActiveNavItem())
 
-// 處理新建章節點擊
-const handleNewChapterClick = (projectId: number) => {
-  console.log(`Creating new chapter in project ${projectId}`)
-  
-  // 確保項目已展開
-  if (!expandedProjects.value.includes(projectId)) {
-    expandedProjects.value.push(projectId)
-    saveExpandedState()
+// 新增：判斷 project 是否 active
+const isProjectActive = (project: ProjectSummary) => {
+  if (project.type_ === 'blog') {
+    return getBlogsByProject(project.id!).some(blog => currentBlogId.value === blog.id)
+  } else if (project.type_ === 'book') {
+    return getChaptersByProject(project.id!).some(chapter => currentChapterId.value === chapter.id)
   }
+  return false
 }
 
 onMounted(() => {
-  loadProjects()
+  loadProjects().then(() => scrollToActiveNavItem())
+  window.addEventListener('refresh-sidebar', () => {
+    loadProjects().then(() => scrollToActiveNavItem())
+  })
 })
 </script>
 
 <style scoped>
 .nested-nav {
   width: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .nav-list {
@@ -402,5 +490,31 @@ onMounted(() => {
 .add-icon {
   font-size: 1.2rem;
   line-height: 1;
+}
+
+.toggle-section-icon {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+  user-select: none;
+}
+
+.toggle-section-icon:hover {
+  color: var(--color-text-primary);
+}
+
+.nav-sub-item.active {
+  background: #e3f2fd;
+}
+.nav-sub-item.active .nav-sub-link {
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.active-project,
+.active-project .nav-item-header,
+.active-project .nav-sub-list,
+.active-project .nav-sub-item {
+  background: #e3f2fd;
 }
 </style> 

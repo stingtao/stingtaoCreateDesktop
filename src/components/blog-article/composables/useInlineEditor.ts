@@ -1,5 +1,6 @@
 import { ref, nextTick } from 'vue'
 import { invoke } from '@tauri-apps/api/tauri'
+import { buildAIPrompt } from '../../../composables/useAIPromptBuilder'
 
 export function useInlineEditor() {
   const showInlineEditor = ref(false)
@@ -121,7 +122,6 @@ export function useInlineEditor() {
     conversationHistoryRef?: HTMLElement
   ) => {
     console.log('submitInlineEdit started')
-    
     if (!prompt.trim() || !selectedText) {
       console.log('Submit conditions not met:', { 
         prompt, 
@@ -129,25 +129,29 @@ export function useInlineEditor() {
       })
       return
     }
-    
     console.log('Preparing to submit inline edit request:', {
       prompt,
       selectedText,
       blogId
     })
-    
     // Hide the inline editor
     hideInlineEdit()
-    
     // Scroll to bottom of conversation
     if (conversationHistoryRef) {
       conversationHistoryRef.scrollTop = conversationHistoryRef.scrollHeight
     }
-    
     try {
       console.log('Calling inline_edit_text function')
+      // 用 buildAIPrompt 統一組合 prompt
+      const aiPrompt = buildAIPrompt('InlineEditor', {
+        currentTitle: articleTitle,
+        currentContent: articleContent,
+        selectedText,
+        userPrompt: prompt
+      })
       // Use the inline editor agent
       const response = await invoke<string>('inline_edit_text', {
+        prompt: aiPrompt,
         selectedText,
         articleTitle,
         articleContent,
@@ -225,7 +229,7 @@ export function useInlineEditor() {
         console.error('JSON parsing error:', error)
       }
     } catch (error) {
-      console.error('Error calling inline_edit_text:', error)
+      console.error('Error in submitInlineEdit:', error)
     }
   }
   

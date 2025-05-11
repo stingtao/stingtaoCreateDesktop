@@ -23,7 +23,7 @@ export interface BlogArticle {
   id: number
   title: string
   content: string
-  keywords: string
+  keywords: string[]
   project_id: number
   created_at: string
   updated_at: string
@@ -32,7 +32,11 @@ export interface BlogArticle {
 // Get all blogs for a project
 export async function getBlogsByProject(projectId: number): Promise<BlogArticle[]> {
   try {
-    return await invoke<BlogArticle[]>('get_blogs_by_project', { projectId })
+    const blogs = await invoke<any[]>('get_blogs_by_project', { projectId })
+    return blogs.map(blog => ({
+      ...blog,
+      keywords: blog.keywords ? JSON.parse(blog.keywords) : []
+    }))
   } catch (error) {
     console.error('Failed to get blogs:', error)
     return []
@@ -118,12 +122,11 @@ export async function saveBlogArticle(article: BlogArticle): Promise<BlogArticle
       project_id: article.project_id,
       title: article.title,
       content: article.content,
+      keywords: JSON.stringify(article.keywords),
       created_at: article.created_at || new Date().toISOString(),
       updated_at: article.updated_at || new Date().toISOString()
     }
-    
     let savedArticle: BlogArticle;
-    
     if (article.id && article.id > 0) {
       // 如果文章已有 ID，則更新現有文章
       const success = await invoke<boolean>('update_blog', { blog: blogData });
@@ -139,7 +142,6 @@ export async function saveBlogArticle(article: BlogArticle): Promise<BlogArticle
         id: blogId
       };
     }
-    
     return savedArticle;
   } catch (error) {
     console.error('Failed to save blog article:', error);
@@ -155,7 +157,7 @@ export async function getBlogArticle(id: number): Promise<BlogArticle | null> {
     if (blog) {
       return {
         ...blog,
-        keywords: '' // Add default keywords if not present
+        keywords: blog.keywords ? JSON.parse(blog.keywords) : []
       }
     }
     return null

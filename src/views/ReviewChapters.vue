@@ -25,9 +25,11 @@ import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { invoke } from '@tauri-apps/api/tauri'
 import TwoColumnLayout from '../components/layouts/TwoColumnLayout.vue'
+import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
 const router = useRouter()
+const { t } = useI18n()
 const projectId = Number(route.query.project_id)
 const drafts = ref(JSON.parse(localStorage.getItem('chapterDrafts') || '[]'))
 const loadingIdx = ref(-1)
@@ -61,10 +63,10 @@ const acceptChapter = async (ch: any, idx: number) => {
       })
     }
     drafts.value.splice(idx, 1)
-    showToast('已接受章節')
+    showToast(t('chapter.accepted'))
     window.dispatchEvent(new CustomEvent('refresh-sidebar'))
   } catch (e: any) {
-    showToast('儲存失敗: ' + (e?.message || e))
+    showToast(t('chapter.save_failed') + (e?.message || e))
     console.error(e)
   }
   loadingIdx.value = -1
@@ -76,9 +78,9 @@ const removeDraft = async (ch: any, idx: number) => {
       await invoke('delete_chapter', { id: ch.id })
     }
     drafts.value.splice(idx, 1)
-    showToast('已刪除章節')
+    showToast(t('chapter.deleted'))
   } catch (e: any) {
-    showToast('刪除失敗: ' + (e?.message || e))
+    showToast(t('chapter.delete_failed') + (e?.message || e))
     console.error(e)
   }
   loadingIdx.value = -1
@@ -88,7 +90,7 @@ const acceptAll = async () => {
   for (let i = drafts.value.length - 1; i >= 0; i--) {
     await acceptChapter(drafts.value[i], i)
   }
-  showToast('全部章節已接受')
+  showToast(t('chapter.all_accepted'))
   loadingIdx.value = -1
   window.dispatchEvent(new CustomEvent('refresh-sidebar'))
 }

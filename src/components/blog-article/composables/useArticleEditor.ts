@@ -6,7 +6,7 @@ export function useArticleEditor(projectId: number) {
     id: 0,
     title: '',
     content: '',
-    keywords: '',
+    keywords: [],
     project_id: projectId,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()

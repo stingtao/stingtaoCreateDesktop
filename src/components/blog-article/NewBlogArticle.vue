@@ -42,6 +42,27 @@
             </div>
           </div>
           
+          <!-- 新增：關鍵字輸入欄位 -->
+          <div class="form-group">
+            <label for="keywords">Keywords</label>
+            <div class="keywords-input">
+              <input
+                id="keywords"
+                v-model="keywordInput"
+                type="text"
+                placeholder="Add a keyword and press Enter or +"
+                @keydown.enter.prevent="addKeyword"
+              />
+              <button class="add-keyword-btn" @click="addKeyword">+</button>
+            </div>
+            <div class="keywords-list" v-if="Array.isArray(article.keywords) && article.keywords.length">
+              <span v-for="(kw, idx) in article.keywords" :key="kw + idx" class="keyword-tag">
+                {{ kw }}
+                <span class="remove-keyword" @click="removeKeyword(idx)">×</span>
+              </span>
+            </div>
+          </div>
+          
           <div class="form-group content-group">
             <div class="content-header">
               <label for="content">Content</label>
@@ -1324,11 +1345,15 @@ const isSending = ref(false)
 // Add handleSendMessage function
 const handleSendMessage = async () => {
   if (!userPrompt.value.trim()) return
-  
   isSending.value = true
   try {
+    // 將 keywords 加入 prompt
+    let promptWithKeywords = userPrompt.value
+    if (article.value.keywords && article.value.keywords.length > 0) {
+      promptWithKeywords = `Keywords: ${article.value.keywords.join(', ')}\n` + userPrompt.value
+    }
     await sendMessage(
-      userPrompt.value,
+      promptWithKeywords,
       selectedTextInfo.value?.text,
       agentType.value,
       blogId.value,
@@ -1352,6 +1377,26 @@ const updateMousePosition = (event: MouseEvent) => {
   }
   // Also update the inline editor's mouse position
   updateInlineEditorMousePosition(event.clientX, event.clientY)
+}
+
+// 關鍵字欄位
+const keywordInput = ref('')
+if (!article.value.keywords) article.value.keywords = []
+const addKeyword = () => {
+  const kw = keywordInput.value.trim()
+  if (!Array.isArray(article.value.keywords)) {
+    article.value.keywords = []
+  }
+  if (kw && !article.value.keywords.includes(kw)) {
+    article.value.keywords.push(kw)
+  }
+  keywordInput.value = ''
+}
+const removeKeyword = (idx: number) => {
+  if (!Array.isArray(article.value.keywords)) {
+    article.value.keywords = []
+  }
+  article.value.keywords.splice(idx, 1)
 }
 </script> 
 

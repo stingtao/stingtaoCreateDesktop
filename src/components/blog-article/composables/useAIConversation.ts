@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { invoke } from '@tauri-apps/api/tauri'
 import { saveBlogArticle } from '../../../lib/content'
+import { buildAIPrompt, AgentType } from '../../../composables/useAIPromptBuilder'
 
 interface DraftGeneratorResponse {
   explanation: string;
@@ -137,161 +138,70 @@ export function useAIConversation() {
 
     try {
       let response: string = '';
-      
-      // 調用後端 API 時使用與 Rust 函數參數相匹配的名稱 (camelCase)
-      // 因為 Tauri 序列化機制期望參數名稱與函數參數完全一致
-      const params = {
-        prompt,
-        selectedText: selectedText || '',
-        blogId,
-        projectData: projectData || null,
+      // 統一用 buildAIPrompt 組合 prompt
+      const aiPrompt = buildAIPrompt(agentType as AgentType, {
+        project: projectData || undefined,
         currentTitle,
-        currentContent
-      };
-      
-      console.log(`Sending request with agent type: ${agentType}`);
-      console.log(`Parameters:`, params);
-      
+        currentContent,
+        selectedText,
+        userPrompt: prompt
+      })
       // 根據不同的 agentType 調用不同的後端函數
       switch (agentType) {
         case 'DraftGenerator':
-          const rawResponse = await invoke<string>('generate_article_draft', params);
+          response = await invoke<string>('generate_article_draft', {
+            prompt: aiPrompt,
+            selectedText: selectedText || '',
+            blogId,
+            projectData: projectData || null,
+            currentTitle,
+            currentContent
+          });
+          const trimmedResponse = response.trim();
           let jsonStringToParse: string | null = null;
-          const trimmedResponse = rawResponse.trim();
-          
-          try {
-            // Attempt 1: Maybe it's already a JSON object string?
-            const parsedDirectly = JSON.parse(trimmedResponse);
-            if (typeof parsedDirectly === 'object' && parsedDirectly !== null) {
-              // If direct parsing works, it means the string was like '{...}'
-              jsonStringToParse = trimmedResponse;
-            } else if (typeof parsedDirectly === 'string') {
-              // Attempt 2: Maybe it's a string containing escaped JSON ("{...}")?
-              // If parsing succeeded and it's a string, parse *that* string.
-              jsonStringToParse = parsedDirectly;
-               // Verify this extracted string is parseable JSON before proceeding
-               try {
-                  JSON.parse(jsonStringToParse);
-               } catch (eInner) {
-                  console.error('Inner string is invalid JSON:', jsonStringToParse, eInner);
-                  jsonStringToParse = null; // Mark as failed
-               }
-            } else {
-              // Parsed to something unexpected (number, boolean, null)
-              console.warn('Parsed response is not a JSON object or a string containing JSON.');
-              // Fall through to try markdown extraction
-            }
-          } catch (e1) {
-            // Direct parsing failed or parsing the inner string failed.
-             console.log('Direct JSON parse failed or result was not string/object, trying markdown.', e1)
-            // Attempt 3: Check for markdown code block
-            const jsonMatch = trimmedResponse.match(/```json\n([\s\S]*?)\n```/);
-            if (jsonMatch && jsonMatch[1]) {
-              jsonStringToParse = jsonMatch[1].trim();
-               // Verify this extracted string is parseable JSON before proceeding
-               try {
-                  JSON.parse(jsonStringToParse);
-               } catch (e2) {
-                  console.error('Extracted markdown JSON is invalid:', jsonStringToParse, e2);
-                  jsonStringToParse = null; // Mark as failed
-               }
-            }
+          if (trimmedResponse.startsWith('```json')) {
+            const match = trimmedResponse.match(/```json[\r\n]+([\s\S]+?)\r?\n```/)
+            if (match && match[1]) jsonStringToParse = match[1]
+          } else if (trimmedResponse.startsWith('{')) {
+            jsonStringToParse = trimmedResponse
           }
-
-
-          if (jsonStringToParse === null) {
-            console.error('No valid JSON found in response after multiple checks:', rawResponse);
-            // Add assistant message indicating failure to parse
-            conversationHistory.value.push({
-                role: 'assistant',
-                content: 'Sorry, the response from the AI was not in the expected format and could not be processed. Please check the format or try again. Raw response: ' + rawResponse,
-                timestamp: new Date()
-            });
-            return; // Exit the function gracefully
-    }
-    
-    try {
-            // Clean potential invalid control characters before parsing
-            // Removes characters in the range U+0000-U+001F, excluding tab, newline, carriage return
-            jsonStringToParse = jsonStringToParse.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '');
-            
-            // Parse the final JSON string
-            const draftResponse = JSON.parse(jsonStringToParse) as DraftGeneratorResponse;
-            
-            // Add null checks and default values
-            const explanation = draftResponse?.explanation || 'No explanation provided.';
-            const suggestions = draftResponse?.suggestions || [];
-            const draftTitle = draftResponse?.draftTitle || '';
-            const draftContent = draftResponse?.draftContent || '';
-            
-            // Format explanation and suggestions with markdown
-            const formattedExplanation = `### Draft Generation Explanation\n${explanation}\n\n### Suggestions\n${suggestions.map(s => `- ${s}`).join('\n')}`;
-            
-            // Add formatted response to conversation history
-            conversationHistory.value.push({
-              role: 'assistant',
-              content: formattedExplanation,
-              timestamp: new Date()
-            });
-            
-            // Show draft view - update each property individually to ensure reactivity
-            draftView.value = {
-              title: draftTitle,
-              content: draftContent,
-              isVisible: true
-            };
-            
-            console.log('Updated draftView in sendMessage:', {
-              isVisible: draftView.value.isVisible,
-              title: draftView.value.title,
-              content: draftView.value.content
-            });
-            
-            // response = formattedExplanation; // Ensure 'response' is handled if needed elsewhere
-          } catch (parseError) {
-            console.error('Error parsing final JSON string:', parseError, 'String content:', jsonStringToParse);
-             // Add assistant message indicating failure to parse
-      conversationHistory.value.push({
-                role: 'assistant',
-                content: 'Sorry, the response from the AI was not in the expected format and could not be processed after attempting cleanup. Please check the format or try again. Content: ' + jsonStringToParse,
-                timestamp: new Date()
-            });
-            return; // Exit the function gracefully
+          if (jsonStringToParse) {
+            try {
+              const parsed = JSON.parse(jsonStringToParse)
+              draftView.value.title = parsed.draftTitle || ''
+              draftView.value.content = parsed.draftContent || ''
+              draftView.value.isVisible = true
+            } catch (e) {
+              // fallback: 顯示原始內容
+              draftView.value.title = ''
+              draftView.value.content = trimmedResponse
+              draftView.value.isVisible = true
+            }
+          } else {
+            draftView.value.title = ''
+            draftView.value.content = trimmedResponse
+            draftView.value.isVisible = true
           }
           break;
-          
-        case 'Planning':
-          response = await invoke<string>('plan_article_content', params);
-          break;
-          
-        case 'Research':
-          response = await invoke<string>('analyze_article_content', params);
-          break;
-          
-        case 'Reviewer':
-          response = await invoke<string>('review_article_final', params);
-          break;
-          
         case 'Editor':
+        case 'Reviewer':
+        case 'InlineEditor':
         default:
-          response = await invoke<string>('adjust_article_style', params);
+          // 其他 agentType 統一用 aiPrompt
+          response = await invoke<string>('generate_article_draft', {
+            prompt: aiPrompt,
+            selectedText: selectedText || '',
+            blogId,
+            projectData: projectData || null,
+            currentTitle,
+            currentContent
+          });
+          conversationHistory.value.push({
+            role: 'assistant',
+            content: response,
+            timestamp: new Date()
+          });
           break;
-      }
-
-      // Add assistant message with animation
-      const assistantMessage: Message = {
-        role: 'assistant',
-        content: response,
-        timestamp: new Date()
-      };
-      conversationHistory.value.push(assistantMessage);
-      await animateMessage(assistantMessage);
-      
-      // Scroll to bottom of conversation history
-      if (conversationHistoryRef) {
-        setTimeout(() => {
-        conversationHistoryRef.scrollTop = conversationHistoryRef.scrollHeight
-        }, 100)
       }
     } catch (error) {
       console.error('Error generating response:', error)

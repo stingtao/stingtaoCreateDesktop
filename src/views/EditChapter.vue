@@ -162,6 +162,7 @@
             </div>
           </div>
         </div>
+        <div v-if="toastMessage" class="error-toast">{{ toastMessage }}</div>
       </div>
     </template>
     <template #ai-assistant>
@@ -403,6 +404,12 @@ function debounceSave() {
   }, 10000)
 }
 
+const toastMessage = ref('')
+function showToast(msg: string) {
+  toastMessage.value = msg
+  setTimeout(() => (toastMessage.value = ''), 2000)
+}
+
 async function saveChapter() {
   isSaving.value = true
   try {
@@ -418,6 +425,8 @@ async function saveChapter() {
     isSaved.value = true
   } catch (error) {
     console.error('Failed to save chapter:', error)
+    const msg = error instanceof Error ? error.message : String(error)
+    showToast(t('chapter.save_failed') + msg)
   } finally {
     isSaving.value = false
   }
@@ -734,6 +743,8 @@ async function handleSendMessage() {
     )
   } catch (error) {
     console.error('Error sending message:', error)
+    const msg = error instanceof Error ? error.message : String(error)
+    showToast(t('chapter.generate_failed') + msg)
   } finally {
     isSending.value = false
   }
@@ -883,7 +894,8 @@ async function deleteChapterHandler() {
     }
   } catch (error) {
     console.error('刪除章節失敗:', error)
-    await tauriMessage(t('chapter.delete_failed'))
+    const msg = error instanceof Error ? error.message : String(error)
+    showToast(t('chapter.delete_failed') + msg)
   }
 }
 const deleteChapter = deleteChapterHandler
@@ -963,5 +975,19 @@ const deleteChapter = deleteChapterHandler
   justify-content: flex-end;
   gap: 1rem;
   margin-top: 1.5rem;
+}
+.error-toast {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #e53935;
+  color: #fff;
+  padding: 0.7rem 2rem;
+  border-radius: 6px;
+  z-index: 2000;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  pointer-events: none;
 }
 </style> 

@@ -124,6 +124,7 @@ pub struct Blog {
     pub project_id: i64,
     pub title: String,
     pub content: String,
+    pub keywords: Option<String>,
     pub created_at: String,
     pub updated_at: String,
 }
@@ -179,6 +180,7 @@ pub fn init_db() -> Result<Connection, String> {
             project_id INTEGER NOT NULL,
             title TEXT NOT NULL,
             content TEXT,
+            keywords TEXT,
             created_at TEXT,
             updated_at TEXT,
             FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
@@ -186,6 +188,23 @@ pub fn init_db() -> Result<Connection, String> {
         [],
     ).map_err(|e| e.to_string())?;
     println!("Ensured blogs table exists.");
+    
+    // --- Blogs Table Schema Synchronization ---
+    {
+        let mut stmt = conn.prepare("PRAGMA table_info(blogs)").map_err(|e| e.to_string())?;
+        let existing_columns_iter = stmt.query_map([], |row| row.get::<_, String>(1)).map_err(|e| e.to_string())?;
+        let mut existing_columns = std::collections::HashSet::new();
+        for column in existing_columns_iter {
+            existing_columns.insert(column.map_err(|e| e.to_string())?);
+        }
+        if !existing_columns.contains("keywords") {
+            let sql = "ALTER TABLE blogs ADD COLUMN keywords TEXT";
+            match conn.execute(sql, []) {
+                Ok(_) => println!("Added missing column: blogs.keywords"),
+                Err(e) => println!("Failed to add column blogs.keywords: {}", e),
+            }
+        }
+    }
     
     // Create chapters table if it doesn't exist
     conn.execute(
@@ -914,9 +933,9 @@ pub fn get_blogs_by_project(project_id: i64) -> Result<Vec<Blog>, String> {
     let conn = init_db().map_err(|e| e.to_string())?;
     
     let mut stmt = conn.prepare(
-        "SELECT id, project_id, title, content, created_at, updated_at 
-         FROM blogs 
-         WHERE project_id = ? 
+        "SELECT id, project_id, title, content, keywords, created_at, updated_at \
+         FROM blogs \
+         WHERE project_id = ? \
          ORDER BY created_at DESC"
     ).map_err(|e| e.to_string())?;
     
@@ -926,8 +945,9 @@ pub fn get_blogs_by_project(project_id: i64) -> Result<Vec<Blog>, String> {
             project_id: row.get(1)?,
             title: row.get(2)?,
             content: row.get(3)?,
-            created_at: row.get(4)?,
-            updated_at: row.get(5)?,
+            keywords: row.get(4)?,
+            created_at: row.get(5)?,
+            updated_at: row.get(6)?,
         })
     }).map_err(|e| e.to_string())?
     .collect::<Result<Vec<_>, _>>()
@@ -967,21 +987,21 @@ pub fn get_chapters_by_project(project_id: i64) -> Result<Vec<Chapter>, String> 
 #[tauri::command]
 pub fn save_blog(blog: Blog) -> Result<i64, String> {
     let conn = init_db().map_err(|e| e.to_string())?;
-    
     let now = Local::now().to_rfc3339();
-    
+
     let id = conn.execute(
-        "INSERT INTO blogs (project_id, title, content, created_at, updated_at) 
-         VALUES (?1, ?2, ?3, ?4, ?5)",
+        "INSERT INTO blogs (project_id, title, content, keywords, created_at, updated_at) \
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
         params![
             blog.project_id,
             blog.title,
             blog.content,
+            blog.keywords,
             now,
             now
         ],
     ).map_err(|e| e.to_string())?;
-    
+
     Ok(conn.last_insert_rowid())
 }
 
@@ -1009,21 +1029,21 @@ pub fn save_chapter(chapter: Chapter) -> Result<i64, String> {
 #[tauri::command]
 pub fn update_blog(blog: Blog) -> Result<bool, String> {
     let conn = init_db().map_err(|e| e.to_string())?;
-    
     let now = Local::now().to_rfc3339();
-    
+
     conn.execute(
-        "UPDATE blogs 
-         SET title = ?1, content = ?2, updated_at = ?3 
-         WHERE id = ?4",
+        "UPDATE blogs \
+         SET title = ?1, content = ?2, keywords = ?3, updated_at = ?4 \
+         WHERE id = ?5",
         params![
             blog.title,
             blog.content,
+            blog.keywords,
             now,
             blog.id
         ],
     ).map_err(|e| e.to_string())?;
-    
+
     Ok(true)
 }
 
@@ -1365,8 +1385,12 @@ pub async fn export_database_json(app_handle: AppHandle) -> Result<String, Strin
         if let Ok(project_id) = row.get::<_, i64>(1) { blog.insert("project_id".to_string(), serde_json::Value::Number(project_id.into())); }
         if let Ok(title) = row.get::<_, String>(2) { blog.insert("title".to_string(), serde_json::Value::String(title)); }
         if let Ok(content) = row.get::<_, String>(3) { blog.insert("content".to_string(), serde_json::Value::String(content)); }
-        if let Ok(created_at) = row.get::<_, String>(4) { blog.insert("created_at".to_string(), serde_json::Value::String(created_at)); }
-        if let Ok(updated_at) = row.get::<_, String>(5) { blog.insert("updated_at".to_string(), serde_json::Value::String(updated_at)); }
+        if let Ok(keywords) = row.get::<_, Option<String>>(4) { 
+            blog.insert("keywords".to_string(), 
+                keywords.map_or(serde_json::Value::Null, |v| serde_json::Value::String(v.clone()))); 
+        }
+        if let Ok(created_at) = row.get::<_, String>(5) { blog.insert("created_at".to_string(), serde_json::Value::String(created_at)); }
+        if let Ok(updated_at) = row.get::<_, String>(6) { blog.insert("updated_at".to_string(), serde_json::Value::String(updated_at)); }
         
         Ok(blog)
     })
